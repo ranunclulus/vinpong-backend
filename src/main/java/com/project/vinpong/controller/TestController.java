@@ -12,8 +12,7 @@ public class TestController {
 
     @GetMapping("/health")
     public String test() {
-        log.info("health check");
-        return "I'm health";
+        return "I'm health ";
     }
 }
 
