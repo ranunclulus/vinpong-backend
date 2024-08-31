@@ -2,16 +2,18 @@ package com.project.vinpong.controller;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @Slf4j
 public class TestController {
 
-    @RequestMapping("/")
+    @GetMapping("/health")
     public String test() {
-        log.info("test controller");
-        return "test";
+        log.info("health check");
+        return "I'm health";
     }
 }
 
