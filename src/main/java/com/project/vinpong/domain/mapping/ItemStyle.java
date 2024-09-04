@@ -1,10 +1,9 @@
 package com.project.vinpong.domain.mapping;
 
+import com.project.vinpong.domain.Item;
+import com.project.vinpong.domain.Style;
 import com.project.vinpong.domain.common.BaseEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -16,4 +15,13 @@ public class ItemStyle extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long itemStyleId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "item_id")
+    private Item item;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "style")
+    private Style style;
 }
+
