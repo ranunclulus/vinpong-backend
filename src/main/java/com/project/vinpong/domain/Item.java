@@ -4,6 +4,7 @@ import com.project.vinpong.domain.common.BaseEntity;
 import com.project.vinpong.domain.enums.ItemSize;
 import com.project.vinpong.domain.enums.ItemState;
 import com.project.vinpong.domain.enums.ItemStatus;
+import com.project.vinpong.domain.mapping.ItemCategory;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -40,4 +41,7 @@ public class Item extends BaseEntity {
 
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
     private List<ItemImage> itemImageList;
+
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
+    private List<ItemCategory> itemCategoryList;
 }
