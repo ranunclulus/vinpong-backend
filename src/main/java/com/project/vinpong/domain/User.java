@@ -4,6 +4,7 @@ import com.project.vinpong.domain.common.BaseEntity;
 import com.project.vinpong.domain.enums.Gender;
 import com.project.vinpong.domain.enums.SocialType;
 import com.project.vinpong.domain.enums.UserStatus;
+import com.project.vinpong.domain.mapping.UserStyle;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -41,4 +42,7 @@ public class User extends BaseEntity {
 
     @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL)
     private List<Item> itemList;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    private List<UserStyle> userStyleList;
 }
