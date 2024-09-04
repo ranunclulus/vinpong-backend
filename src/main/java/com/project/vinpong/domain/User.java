@@ -39,5 +39,6 @@ public class User extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private UserStatus userStatus;
 
+    @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL)
     private List<Item> itemList;
 }
