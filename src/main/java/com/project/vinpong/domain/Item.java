@@ -7,6 +7,8 @@ import com.project.vinpong.domain.enums.ItemStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Getter
 @Builder
 @Entity
@@ -36,5 +38,6 @@ public class Item extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private ItemState itemState;
 
-
+    @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
+    private List<ItemImage> itemImageList;
 }
