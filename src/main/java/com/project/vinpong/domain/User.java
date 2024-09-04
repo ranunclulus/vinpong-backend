@@ -7,6 +7,8 @@ import com.project.vinpong.domain.enums.UserStatus;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.List;
+
 @Entity
 @Getter
 @Builder
@@ -36,4 +38,6 @@ public class User extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private UserStatus userStatus;
+
+    private List<Item> itemList;
 }
