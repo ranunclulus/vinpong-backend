@@ -31,7 +31,7 @@ public class User extends BaseEntity {
 
     private String description;
 
-    private String profileImgUrl;
+    private String profileImageUrl;
 
     @Enumerated(EnumType.STRING)
     private SocialType socialType;
