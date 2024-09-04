@@ -18,9 +18,10 @@ public class Style extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long styleId;
 
+    @Column(nullable = false)
     private String style;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "style", cascade = CascadeType.ALL)
     private List<ItemStyle> itemStyleList;
 
     @OneToMany(mappedBy = "style", cascade = CascadeType.ALL)

@@ -17,6 +17,7 @@ public class Category extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long categoryId;
 
+    @Column(nullable = false)
     private String category;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)

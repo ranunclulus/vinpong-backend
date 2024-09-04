@@ -1,10 +1,7 @@
 package com.project.vinpong.domain;
 
 import com.project.vinpong.domain.common.BaseEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
@@ -17,5 +14,6 @@ public class SearchWord extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long searchWordId;
 
+    @Column(nullable = false)
     private Long searchWord;
 }

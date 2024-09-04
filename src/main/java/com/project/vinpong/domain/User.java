@@ -21,10 +21,12 @@ public class User extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
 
+    @Column(nullable = false, length = 20)
     private String username;
 
     private String phonenumber;
 
+    @Column(nullable = false, length = 50)
     private String email;
 
     @Enumerated(EnumType.STRING)
@@ -38,6 +40,7 @@ public class User extends BaseEntity {
     private SocialType socialType;
 
     @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "VARCHAR(15) DEFAULT 'ACTIVE'")
     private UserStatus userStatus;
 
     @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL)

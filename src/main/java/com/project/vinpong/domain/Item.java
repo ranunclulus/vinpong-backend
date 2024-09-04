@@ -25,19 +25,25 @@ public class Item extends BaseEntity {
     @JoinColumn(name = "user_id")
     private User seller;
 
+    @Column(nullable = false, length = 20)
     private String itemName;
 
+    @Column(nullable = false)
     private Integer price;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private ItemStatus itemStatus;
 
     @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
     private ItemSize itemSize;
 
+    @Column(nullable = false)
     private String description;
 
     @Enumerated(EnumType.STRING)
+    @Column(columnDefinition = "VARCHAR(15) DEFAULT 'SELLING'")
     private ItemState itemState;
 
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)

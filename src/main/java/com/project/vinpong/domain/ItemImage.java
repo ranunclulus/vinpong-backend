@@ -14,6 +14,7 @@ public class ItemImage extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long itemImageId;
 
+    @Column(nullable = false)
     private String itemImageUrl;
 
     @ManyToOne(fetch = FetchType.LAZY)
