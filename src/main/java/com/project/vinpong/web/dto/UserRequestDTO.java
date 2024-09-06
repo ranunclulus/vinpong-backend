@@ -20,7 +20,7 @@ public class UserRequestDTO {
 
         String email;
 
-        Gender gender;
+        String gender; //MALE, FEMALE
 
         String description;
 
