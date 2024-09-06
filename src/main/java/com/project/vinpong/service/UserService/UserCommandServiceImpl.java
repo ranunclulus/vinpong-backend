@@ -3,6 +3,7 @@ package com.project.vinpong.service.UserService;
 import com.project.vinpong.apiPayload.code.status.ErrorStatus;
 import com.project.vinpong.apiPayload.exception.handler.StyleHandler;
 import com.project.vinpong.converter.UserConverter;
+import com.project.vinpong.converter.UserStyleConverter;
 import com.project.vinpong.domain.Style;
 import com.project.vinpong.domain.User;
 import com.project.vinpong.domain.mapping.UserStyle;
@@ -26,12 +27,13 @@ public class UserCommandServiceImpl implements UserCommandService{
     @Override
     @Transactional
     public User joinUser(UserRequestDTO.JoinDTO request) {
-        User user = UserConverter.toUser(request);
+        User newUser = UserConverter.toUser(request);
         List<Style> styleList = request.getPreferStyles().stream()
                 .map(styleId -> {return styleRepository.findById(styleId).orElseThrow(() -> new StyleHandler(ErrorStatus.STYLE_NOT_FOUND));
                 }).collect(Collectors.toList());
 
-        //List<UserStyle> userStyleList = UserStyleConverter
-        return null;
+        List<UserStyle> userStyleList = UserStyleConverter.toUserStyleList(styleList);
+        userStyleList.forEach(userStyle -> userStyle.setUser(newUser));
+        return userRepository.save(newUser);
     }
 }
