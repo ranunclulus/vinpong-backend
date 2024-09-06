@@ -22,10 +22,10 @@ public class UserConverter {
 
         Gender gender = null;
         switch (request.getGender()) {
-            case "MALE":
+            case 1:
                 gender = Gender.MALE;
                 break;
-            case "FEMALE":
+            case 2:
                 gender = Gender.FEMALE;
                 break;
         }

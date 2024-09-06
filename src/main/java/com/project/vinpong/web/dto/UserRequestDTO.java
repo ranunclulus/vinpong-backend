@@ -4,7 +4,10 @@ import com.project.vinpong.domain.enums.Gender;
 import jakarta.persistence.Column;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.Getter;
+
+import java.util.List;
 
 public class UserRequestDTO {
 
@@ -20,11 +23,12 @@ public class UserRequestDTO {
 
         String email;
 
-        String gender; //MALE, FEMALE
+        Integer gender; //1: MALE, 2: FEMALE
 
         String description;
 
         String profileImageUrl;
         String socialType;
+        List<Long> preferStyles;
     }
 }
