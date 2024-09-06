@@ -1,7 +1,7 @@
 package com.project.vinpong.apiPayload.code.status;
 
 import com.project.vinpong.apiPayload.code.BaseCode;
-import com.project.vinpong.apiPayload.code.ReasonDto;
+import com.project.vinpong.apiPayload.code.ReasonDTO;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.springframework.http.HttpStatus;
@@ -16,8 +16,8 @@ public enum SuccessStatus implements BaseCode {
     private final String message;
 
     @Override
-    public ReasonDto getReason() {
-        return ReasonDto.builder()
+    public ReasonDTO getReason() {
+        return ReasonDTO.builder()
                 .message(message)
                 .code(code)
                 .isSuccess(true)
@@ -25,8 +25,8 @@ public enum SuccessStatus implements BaseCode {
     }
 
     @Override
-    public ReasonDto getReasonHttpStatus() {
-        return ReasonDto.builder()
+    public ReasonDTO getReasonHttpStatus() {
+        return ReasonDTO.builder()
                 .message(message)
                 .code(code)
                 .isSuccess(true)
