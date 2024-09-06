@@ -32,7 +32,7 @@ public class User extends BaseEntity {
 
     private String phonenumber;
 
-    @Column(nullable = false, length = 50)
+    @Column(length = 50)
     private String email;
 
     @Enumerated(EnumType.STRING)

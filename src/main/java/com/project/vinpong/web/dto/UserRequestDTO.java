@@ -25,5 +25,6 @@ public class UserRequestDTO {
         String description;
 
         String profileImageUrl;
+        String socialType;
     }
 }
