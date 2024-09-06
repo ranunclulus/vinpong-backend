@@ -23,4 +23,11 @@ public class UserStyle extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "style_id")
     private Style style;
+
+    public void setUser(User user) {
+        if (this.user != null)
+            user.getUserStyleList().remove(user);
+        this.user = user;
+        user.getUserStyleList().add(this);
+    }
 }
