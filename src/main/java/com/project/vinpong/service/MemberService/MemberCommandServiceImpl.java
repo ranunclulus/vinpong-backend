@@ -8,7 +8,7 @@ import com.project.vinpong.domain.Member;
 import com.project.vinpong.domain.Style;
 import com.project.vinpong.domain.mapping.MemberStyle;
 import com.project.vinpong.repository.StyleRepository;
-import com.project.vinpong.repository.UserRepository;
+import com.project.vinpong.repository.MemberRepository;
 import com.project.vinpong.web.dto.MemberRequestDTO;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -21,12 +21,16 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 public class MemberCommandServiceImpl implements MemberCommandService {
-    private final UserRepository userRepository;
+    private final MemberRepository memberRepository;
     private final StyleRepository styleRepository;
 
     @Override
     @Transactional
     public Member joinMember(MemberRequestDTO.JoinDTO request) {
+        if (memberRepository.existsByMembername(request.getMembername())) {
+
+        }
+
         Member newMember = MemberConverter.toMember(request);
         List<Style> styleList = request.getPreferStyles().stream()
                 .map(styleId -> {return styleRepository.findById(styleId).orElseThrow(() -> new StyleHandler(ErrorStatus.STYLE_NOT_FOUND));
@@ -34,6 +38,6 @@ public class MemberCommandServiceImpl implements MemberCommandService {
 
         List<MemberStyle> memberStyleList = MemberStyleConverter.toMemberStyleList(styleList);
         memberStyleList.forEach(memberStyle -> memberStyle.setMember(newMember));
-        return userRepository.save(newMember);
+        return memberRepository.save(newMember);
     }
 }

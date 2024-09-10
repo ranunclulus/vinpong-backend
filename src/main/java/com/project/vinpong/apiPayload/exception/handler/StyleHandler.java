@@ -5,6 +5,7 @@ import com.project.vinpong.apiPayload.exception.GeneralException;
 
 public class StyleHandler extends GeneralException {
     public StyleHandler(BaseErrorCode baseErrorCode) {
+
         super(baseErrorCode);
     }
 }
