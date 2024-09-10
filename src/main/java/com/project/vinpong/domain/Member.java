@@ -3,8 +3,8 @@ package com.project.vinpong.domain;
 import com.project.vinpong.domain.common.BaseEntity;
 import com.project.vinpong.domain.enums.Gender;
 import com.project.vinpong.domain.enums.SocialType;
-import com.project.vinpong.domain.enums.UserStatus;
-import com.project.vinpong.domain.mapping.UserStyle;
+import com.project.vinpong.domain.enums.MemberStatus;
+import com.project.vinpong.domain.mapping.MemberStyle;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,14 +15,14 @@ import java.util.List;
 @Builder
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-public class User extends BaseEntity {
+public class Member extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private Long memberId;
 
     @Column(nullable = false, length = 20)
-    private String username;
+    private String membername;
 
     @Column(nullable = false, length = 20)
     private String id;
@@ -47,11 +47,11 @@ public class User extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(columnDefinition = "VARCHAR(15) DEFAULT 'ACTIVE'")
-    private UserStatus userStatus;
+    private MemberStatus memberStatus;
 
     @OneToMany(mappedBy = "seller", cascade = CascadeType.ALL)
     private List<Item> itemList;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
-    private List<UserStyle> userStyleList;
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
+    private List<MemberStyle> memberStyleList;
 }

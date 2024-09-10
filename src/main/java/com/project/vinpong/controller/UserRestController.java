@@ -1,12 +1,11 @@
 package com.project.vinpong.controller;
 
 import com.project.vinpong.apiPayload.ApiResponse;
-import com.project.vinpong.converter.UserConverter;
-import com.project.vinpong.domain.User;
-import com.project.vinpong.repository.StyleRepository;
-import com.project.vinpong.service.UserService.UserCommandService;
-import com.project.vinpong.web.dto.UserRequestDTO;
-import com.project.vinpong.web.dto.UserResponseDTO;
+import com.project.vinpong.converter.MemberConverter;
+import com.project.vinpong.domain.Member;
+import com.project.vinpong.service.MemberService.MemberCommandService;
+import com.project.vinpong.web.dto.MemberRequestDTO;
+import com.project.vinpong.web.dto.MemberResponseDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,11 +18,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RequestMapping("/v1/users")
 public class UserRestController {
-    private final UserCommandService userCommandService;
+    private final MemberCommandService memberCommandService;
 
     @PostMapping("/signup/general")
-    public ApiResponse<UserResponseDTO.JoinResultDTO> join(@RequestBody @Valid UserRequestDTO.JoinDTO request) {
-        User user = userCommandService.joinUser(request);
-        return ApiResponse.onSuccess(UserConverter.toJoinResultDTO(user));
+    public ApiResponse<MemberResponseDTO.JoinResultDTO> join(@RequestBody @Valid MemberRequestDTO.JoinDTO request) {
+        Member member = memberCommandService.joinMember(request);
+        return ApiResponse.onSuccess(MemberConverter.toJoinResultDTO(member));
     }
 }

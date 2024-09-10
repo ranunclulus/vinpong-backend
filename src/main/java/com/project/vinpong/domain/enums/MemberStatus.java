@@ -1,5 +1,5 @@
 package com.project.vinpong.domain.enums;
 
-public enum UserStatus {
+public enum MemberStatus {
     ACTIVE, INACTIVE;
 }
