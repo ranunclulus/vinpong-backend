@@ -23,7 +23,9 @@ public class MemberRequestDTO {
         String description;
 
         String profileImageUrl;
+
         String socialType;
+
         List<Long> preferStyles;
     }
 }

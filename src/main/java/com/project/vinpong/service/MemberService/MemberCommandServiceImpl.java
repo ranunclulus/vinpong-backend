@@ -1,6 +1,7 @@
 package com.project.vinpong.service.MemberService;
 
 import com.project.vinpong.apiPayload.code.status.ErrorStatus;
+import com.project.vinpong.apiPayload.exception.handler.MemberHandler;
 import com.project.vinpong.apiPayload.exception.handler.StyleHandler;
 import com.project.vinpong.converter.MemberConverter;
 import com.project.vinpong.converter.MemberStyleConverter;
@@ -27,10 +28,6 @@ public class MemberCommandServiceImpl implements MemberCommandService {
     @Override
     @Transactional
     public Member joinMember(MemberRequestDTO.JoinDTO request) {
-        if (memberRepository.existsByMembername(request.getMembername())) {
-
-        }
-
         Member newMember = MemberConverter.toMember(request);
         List<Style> styleList = request.getPreferStyles().stream()
                 .map(styleId -> {return styleRepository.findById(styleId).orElseThrow(() -> new StyleHandler(ErrorStatus.STYLE_NOT_FOUND));
