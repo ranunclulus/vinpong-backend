@@ -22,8 +22,8 @@ public class Item extends BaseEntity {
     private Long itemId;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User seller;
+    @JoinColumn(name = "member_id")
+    private Member seller;
 
     @Column(nullable = false, length = 20)
     private String itemName;

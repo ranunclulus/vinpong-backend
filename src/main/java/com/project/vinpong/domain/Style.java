@@ -2,7 +2,7 @@ package com.project.vinpong.domain;
 
 import com.project.vinpong.domain.common.BaseEntity;
 import com.project.vinpong.domain.mapping.ItemStyle;
-import com.project.vinpong.domain.mapping.UserStyle;
+import com.project.vinpong.domain.mapping.MemberStyle;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -25,5 +25,5 @@ public class Style extends BaseEntity {
     private List<ItemStyle> itemStyleList;
 
     @OneToMany(mappedBy = "style", cascade = CascadeType.ALL)
-    private List<UserStyle> userStyleList;
+    private List<MemberStyle> memberStyleList;
 }

@@ -1,16 +1,16 @@
 package com.project.vinpong.converter;
 
 import com.project.vinpong.domain.Style;
-import com.project.vinpong.domain.mapping.UserStyle;
+import com.project.vinpong.domain.mapping.MemberStyle;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class UserStyleConverter {
+public class MemberStyleConverter {
 
-    public static List<UserStyle> toUserStyleList(List<Style> styleList) {
+    public static List<MemberStyle> toMemberStyleList(List<Style> styleList) {
         return styleList.stream()
-                .map(style -> UserStyle.builder()
+                .map(style -> MemberStyle.builder()
                         .style(style)
                         .build()
                 ).collect(Collectors.toList());

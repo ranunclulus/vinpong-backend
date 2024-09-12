@@ -1,23 +1,23 @@
 package com.project.vinpong.converter;
 
-import com.project.vinpong.domain.User;
+import com.project.vinpong.domain.Member;
 import com.project.vinpong.domain.enums.Gender;
 import com.project.vinpong.domain.enums.SocialType;
-import com.project.vinpong.domain.enums.UserStatus;
-import com.project.vinpong.web.dto.UserRequestDTO;
-import com.project.vinpong.web.dto.UserResponseDTO;
+import com.project.vinpong.domain.enums.MemberStatus;
+import com.project.vinpong.web.dto.MemberRequestDTO;
+import com.project.vinpong.web.dto.MemberResponseDTO;
 
 import java.util.ArrayList;
 
-public class UserConverter {
-    public static UserResponseDTO.JoinResultDTO toJoinResultDTO(User user) {
-        return UserResponseDTO.JoinResultDTO.builder()
-                .userId(user.getUserId())
-                .createdAt(user.getCreatedAt())
+public class MemberConverter {
+    public static MemberResponseDTO.JoinResultDTO toJoinResultDTO(Member member) {
+        return MemberResponseDTO.JoinResultDTO.builder()
+                .memberId(member.getMemberId())
+                .createdAt(member.getCreatedAt())
                 .build();
     }
 
-    public static User toUser(UserRequestDTO.JoinDTO request) {
+    public static Member toMember(MemberRequestDTO.JoinDTO request) {
         SocialType socialType = null;
 
         Gender gender = null;
@@ -29,8 +29,8 @@ public class UserConverter {
                 gender = Gender.FEMALE;
                 break;
         }
-        return User.builder()
-                .username(request.getUsername())
+        return Member.builder()
+                .membername(request.getMembername())
                 .id(request.getId())
                 .password(request.getPassword())
                 .phonenumber(request.getPhonenumber())
@@ -39,9 +39,9 @@ public class UserConverter {
                 .description(request.getDescription())
                 .profileImageUrl(request.getProfileImageUrl())
                 .socialType(socialType)
-                .userStatus(UserStatus.ACTIVE)
+                .memberStatus(MemberStatus.ACTIVE)
                 .itemList(new ArrayList<>())
-                .userStyleList(new ArrayList<>())
+                .memberStyleList(new ArrayList<>())
                 .build();
 
     }

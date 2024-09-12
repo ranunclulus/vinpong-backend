@@ -1,19 +1,14 @@
 package com.project.vinpong.web.dto;
 
-import com.project.vinpong.domain.enums.Gender;
-import jakarta.persistence.Column;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.Getter;
 
 import java.util.List;
 
-public class UserRequestDTO {
+public class MemberRequestDTO {
 
     @Getter
     public static class JoinDTO {
-        String username;
+        String membername;
 
         String id;
 
@@ -28,7 +23,9 @@ public class UserRequestDTO {
         String description;
 
         String profileImageUrl;
+
         String socialType;
+
         List<Long> preferStyles;
     }
 }
