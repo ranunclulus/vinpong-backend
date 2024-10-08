@@ -28,6 +28,9 @@ public class MemberCommandServiceImpl implements MemberCommandService {
     @Override
     @Transactional
     public Member joinMember(MemberRequestDTO.JoinDTO request) {
+        if (memberRepository.existsByMembername(request.getMembername()))
+            throw new MemberHandler(ErrorStatus.ALREADY_EXIST_MEMBERNAME);
+
         Member newMember = MemberConverter.toMember(request);
         List<Style> styleList = request.getPreferStyles().stream()
                 .map(styleId -> {return styleRepository.findById(styleId).orElseThrow(() -> new StyleHandler(ErrorStatus.STYLE_NOT_FOUND));
