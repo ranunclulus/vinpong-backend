@@ -1,4 +1,4 @@
-package com.project.vinpong.controller;
+package com.project.vinpong.web.controller;
 
 import com.project.vinpong.apiPayload.ApiResponse;
 import com.project.vinpong.converter.TempConverter;
