@@ -43,6 +43,9 @@ public class ItemCommandServiceImpl implements ItemCommandService{
 
         List<ItemStyle> itemStyleList = ItemStyleConverter.toItemStyleList(styleList);
         List<ItemCategory> itemCategoryList = ItemCategoryConverter.toItemCategoryList(categoryList);
+
+        itemStyleList.forEach(itemStyle -> itemStyle.setItem(newItem));
+        itemCategoryList.forEach(itemCategory -> itemCategory.setItem(newItem));
         return null;
     }
 }
