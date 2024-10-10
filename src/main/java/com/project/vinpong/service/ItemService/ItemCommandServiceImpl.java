@@ -1,11 +1,15 @@
 package com.project.vinpong.service.ItemService;
 
 import com.project.vinpong.apiPayload.code.status.ErrorStatus;
+import com.project.vinpong.apiPayload.exception.handler.CategoryHandler;
 import com.project.vinpong.apiPayload.exception.handler.StyleHandler;
 import com.project.vinpong.converter.ItemConverter;
+import com.project.vinpong.converter.ItemStyleConverter;
 import com.project.vinpong.domain.Category;
 import com.project.vinpong.domain.Item;
 import com.project.vinpong.domain.Style;
+import com.project.vinpong.domain.mapping.ItemCategory;
+import com.project.vinpong.domain.mapping.ItemStyle;
 import com.project.vinpong.repository.CategoryRepository;
 import com.project.vinpong.repository.StyleRepository;
 import com.project.vinpong.web.dto.ItemRequestDTO;
@@ -33,7 +37,11 @@ public class ItemCommandServiceImpl implements ItemCommandService{
                 }).collect(Collectors.toList());
 
         List<Category> categoryList = request.getItemCategoryList().stream()
-                .map(categoryId -> {return categoryRepository.findById(categoryId).orElseThrow(() -> new )})
+                .map(categoryId -> {return categoryRepository.findById(categoryId).orElseThrow(() -> new CategoryHandler(ErrorStatus.CATEGORY_NOT_FOUND));
+                }).collect(Collectors.toList());
+
+        List<ItemStyle> itemStyleList = ItemStyleConverter.toItemStyleList(styleList);
+        List<ItemCategory> itemCategoryList =
         return null;
     }
 }
