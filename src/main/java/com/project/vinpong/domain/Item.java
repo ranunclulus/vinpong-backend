@@ -54,4 +54,9 @@ public class Item extends BaseEntity {
 
     @OneToMany(mappedBy = "item", cascade = CascadeType.ALL)
     private List<ItemStyle> itemStyleList;
+
+
+    public void setSeller(Member seller) {
+        this.seller = seller;
+    }
 }

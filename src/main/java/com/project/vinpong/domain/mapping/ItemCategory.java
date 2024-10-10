@@ -23,4 +23,12 @@ public class ItemCategory extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
+
+    public void setItem(Item item) {
+        if (this.item != null) {
+            item.getItemCategoryList().remove(item);
+        }
+        this.item = item;
+        item.getItemCategoryList().add(this);
+    }
 }
