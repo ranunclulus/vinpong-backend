@@ -3,6 +3,7 @@ package com.project.vinpong.service.ItemService;
 import com.project.vinpong.apiPayload.code.status.ErrorStatus;
 import com.project.vinpong.apiPayload.exception.handler.CategoryHandler;
 import com.project.vinpong.apiPayload.exception.handler.StyleHandler;
+import com.project.vinpong.converter.ItemCategoryConverter;
 import com.project.vinpong.converter.ItemConverter;
 import com.project.vinpong.converter.ItemStyleConverter;
 import com.project.vinpong.domain.Category;
@@ -41,7 +42,7 @@ public class ItemCommandServiceImpl implements ItemCommandService{
                 }).collect(Collectors.toList());
 
         List<ItemStyle> itemStyleList = ItemStyleConverter.toItemStyleList(styleList);
-        List<ItemCategory> itemCategoryList =
+        List<ItemCategory> itemCategoryList = ItemCategoryConverter.toItemCategoryList(categoryList);
         return null;
     }
 }
