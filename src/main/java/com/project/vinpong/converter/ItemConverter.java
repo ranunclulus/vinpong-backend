@@ -1,6 +1,7 @@
 package com.project.vinpong.converter;
 
 import com.project.vinpong.domain.Item;
+import com.project.vinpong.domain.Member;
 import com.project.vinpong.domain.enums.ItemSize;
 import com.project.vinpong.domain.enums.ItemState;
 import com.project.vinpong.domain.enums.ItemStatus;
@@ -15,18 +16,18 @@ public class ItemConverter {
                 .build();
     }
 
-    public static Item toItem(ItemRequestDTO.JoinDTO request) {
+    public static Item toItem(ItemRequestDTO.JoinDTO request, Member seller) {
 
-        ItemStatus itemStatus = ItemStatus.valueOf(request.getItemStatus());
         ItemSize itemSize = ItemSize.valueOf(request.getItemSize());
         ItemState itemState = ItemState.valueOf(request.getItemState());
 
         return Item.builder()
                 .itemName(request.getItemName())
+                .seller(seller)
                 .price(request.getPrice())
                 .itemSize(itemSize)
                 .itemState(itemState)
-                .itemStatus(itemStatus)
+                .itemStatus(ItemStatus.SELLING)
                 .description(request.getDescription())
                 .build();
 

@@ -11,10 +11,9 @@ public class ItemRequestDTO {
         String seller;
         String itemName;
         Integer price;
-        String itemStatus;
+        String itemState;
         String itemSize;
         String description;
-        String itemState;
         List<Long> itemCategoryList;
         List<Long> itemStyleList;
     }
