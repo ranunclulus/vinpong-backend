@@ -12,6 +12,7 @@ import com.project.vinpong.domain.Style;
 import com.project.vinpong.domain.mapping.ItemCategory;
 import com.project.vinpong.domain.mapping.ItemStyle;
 import com.project.vinpong.repository.CategoryRepository;
+import com.project.vinpong.repository.ItemRepository;
 import com.project.vinpong.repository.StyleRepository;
 import com.project.vinpong.web.dto.ItemRequestDTO;
 import lombok.RequiredArgsConstructor;
@@ -27,6 +28,7 @@ import java.util.stream.Collectors;
 public class ItemCommandServiceImpl implements ItemCommandService{
     private final StyleRepository styleRepository;
     private final CategoryRepository categoryRepository;
+    private final ItemRepository itemRepository;
 
     @Override
     @Transactional
@@ -46,6 +48,6 @@ public class ItemCommandServiceImpl implements ItemCommandService{
 
         itemStyleList.forEach(itemStyle -> itemStyle.setItem(newItem));
         itemCategoryList.forEach(itemCategory -> itemCategory.setItem(newItem));
-        return null;
+        return itemRepository.save(newItem);
     }
 }
