@@ -28,7 +28,9 @@ public class SecurityConfig {
                                 // requestMatchers == 어떤 URL로 오는 요청에 대하여 설정하는지
                                 // permitAll() == 누가 요청해도 허가한다.
                                 .requestMatchers(
-                                        "/members/sign-in"
+                                        "/members/sign-in",
+                                        "v1/users/signup/general",
+                                        "v1/users/signin/general"
                                 )
                                 .permitAll()
                                 .requestMatchers(
