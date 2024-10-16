@@ -1,6 +1,7 @@
 package com.project.vinpong.web.dto;
 
 import lombok.Getter;
+import lombok.ToString;
 
 import java.util.List;
 
@@ -8,7 +9,7 @@ public class MemberRequestDTO {
 
     @Getter
     public static class JoinDTO {
-        String membername;
+        String username;
 
         String id;
 
@@ -27,5 +28,14 @@ public class MemberRequestDTO {
         String socialType;
 
         List<Long> preferStyles;
+    }
+
+    @Getter
+    @ToString
+    public static class SignDTO {
+
+        String username;
+
+        String password;
     }
 }

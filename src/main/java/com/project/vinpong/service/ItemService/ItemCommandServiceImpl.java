@@ -38,7 +38,7 @@ public class ItemCommandServiceImpl implements ItemCommandService{
     @Override
     @Transactional
     public Item joinItem(ItemRequestDTO.JoinDTO request) {
-        Optional<Member> optionalMember = memberRepository.findByMembername(request.getSeller());
+        Optional<Member> optionalMember = memberRepository.findByUsernamae(request.getSeller());
         if (optionalMember.isEmpty()) throw new MemberHandler(ErrorStatus.MEMBER_NOT_FOUND);
         Member seller = optionalMember.get();
 
