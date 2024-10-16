@@ -30,7 +30,7 @@ public class MemberConverter {
                 break;
         }
         return Member.builder()
-                .membername(request.getMembername())
+                .usernamae(request.getUsername())
                 .id(request.getId())
                 .password(request.getPassword())
                 .phonenumber(request.getPhonenumber())

@@ -8,7 +8,7 @@ public class MemberRequestDTO {
 
     @Getter
     public static class JoinDTO {
-        String membername;
+        String username;
 
         String id;
 
