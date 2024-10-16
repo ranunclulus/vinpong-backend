@@ -4,6 +4,7 @@ import com.project.vinpong.domain.Member;
 import com.project.vinpong.domain.enums.Gender;
 import com.project.vinpong.domain.enums.SocialType;
 import com.project.vinpong.domain.enums.MemberStatus;
+import com.project.vinpong.jwt.JwtToken;
 import com.project.vinpong.web.dto.MemberRequestDTO;
 import com.project.vinpong.web.dto.MemberResponseDTO;
 
@@ -44,5 +45,11 @@ public class MemberConverter {
                 .memberStyleList(new ArrayList<>())
                 .build();
 
+    }
+
+    public static MemberResponseDTO.SignInResultDTO toSignInResultDTO(JwtToken jwtToken) {
+        return MemberResponseDTO.SignInResultDTO.builder()
+                .jwtToken(jwtToken)
+                .build();
     }
 }
