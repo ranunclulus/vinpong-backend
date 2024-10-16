@@ -66,7 +66,7 @@ public class JwtTokenProvider {
         Claims claims = parseClaims(accessToken);
 
         if (claims.get("auth") == null) {
-            throw new JwtHandler(ErrorStatus.CATEGORY_NOT_FOUND);
+            throw new JwtHandler(ErrorStatus.ACCESSTOKEN_INVALID);
         }
 
         Collection<? extends GrantedAuthority> authorities = Arrays.stream(claims.get("auth").toString().split(","))

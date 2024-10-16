@@ -13,7 +13,8 @@ public enum ErrorStatus implements BaseErrorCode {
     STYLE_NOT_FOUND(HttpStatus.BAD_REQUEST, "STYLE4001", "스타일이 없습니다."),
     CATEGORY_NOT_FOUND(HttpStatus.BAD_REQUEST, "CATEGORY4001", "카테고리가 없습니다."),
     MEMBER_NOT_FOUND(HttpStatus.BAD_REQUEST, "MEMBER4001", "멤버가 없습니다."),
-    ALREADY_EXIST_MEMBERNAME(HttpStatus.BAD_REQUEST, "MEMBER4002", "이미 존재하는 멤버 이름입니다.")
+    ALREADY_EXIST_MEMBERNAME(HttpStatus.BAD_REQUEST, "MEMBER4002", "이미 존재하는 멤버 이름입니다."),
+    ACCESSTOKEN_INVALID(HttpStatus.FORBIDDEN, "JET4001", "유효하지 않은 토큰입니다.")
     ;
 
 
