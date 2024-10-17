@@ -19,7 +19,7 @@ public class MemberConverter {
                 .build();
     }
 
-    public static Member toMember(MemberRequestDTO.JoinDTO request) {
+    public static Member toMember(MemberRequestDTO.JoinDTO request, String encodePassword) {
         SocialType socialType = null;
 
         Gender gender = null;
@@ -34,7 +34,7 @@ public class MemberConverter {
         return Member.builder()
                 .usernamae(request.getUsername())
                 .id(request.getId())
-                .password(request.getPassword())
+                .password(encodePassword)
                 .phonenumber(request.getPhonenumber())
                 .email(request.getEmail())
                 .gender(gender)

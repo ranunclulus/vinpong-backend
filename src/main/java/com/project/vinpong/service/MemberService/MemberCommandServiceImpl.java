@@ -17,6 +17,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -31,6 +32,7 @@ public class MemberCommandServiceImpl implements MemberCommandService {
     private final StyleRepository styleRepository;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
     private final JwtTokenProvider jwtTokenProvider;
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     @Transactional
@@ -38,7 +40,7 @@ public class MemberCommandServiceImpl implements MemberCommandService {
         if (memberRepository.existsByUsernamae(request.getUsername()))
             throw new MemberHandler(ErrorStatus.ALREADY_EXIST_MEMBERNAME);
 
-        Member newMember = MemberConverter.toMember(request);
+        Member newMember = MemberConverter.toMember(request, passwordEncoder.encode(request.getPassword()));
         List<Style> styleList = request.getPreferStyles().stream()
                 .map(styleId -> {return styleRepository.findById(styleId).orElseThrow(() -> new StyleHandler(ErrorStatus.STYLE_NOT_FOUND));
                 }).collect(Collectors.toList());
@@ -51,12 +53,14 @@ public class MemberCommandServiceImpl implements MemberCommandService {
     @Override
     @Transactional
     public JwtToken signIn(String username, String password) {
+        //System.out.println(passwordEncoder.encode(password));
         UsernamePasswordAuthenticationToken authenticationToken
                 = new UsernamePasswordAuthenticationToken(username, password);
-
+        System.out.println(authenticationToken.toString());
         Authentication authentication =
                 authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-
+        System.out.println("=====================");
+        System.out.println(authentication.toString());
         return jwtTokenProvider.generateToken(authentication);
     }
 }
