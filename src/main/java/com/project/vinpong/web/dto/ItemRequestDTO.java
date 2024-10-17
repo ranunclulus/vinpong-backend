@@ -8,7 +8,6 @@ public class ItemRequestDTO {
 
     @Getter
     public static class JoinDTO {
-        String seller;
         String itemName;
         Integer price;
         String itemState;

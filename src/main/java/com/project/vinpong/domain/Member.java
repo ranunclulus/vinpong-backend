@@ -33,7 +33,7 @@ public class Member extends BaseEntity implements UserDetails {
     @Column(nullable = false, length = 20)
     private String id;
 
-    @Column(nullable = false, length = 20)
+    @Column(nullable = false)
     private String password;
 
     private String phonenumber;

@@ -9,7 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
@@ -28,9 +28,8 @@ public class SecurityConfig {
                                 // requestMatchers == 어떤 URL로 오는 요청에 대하여 설정하는지
                                 // permitAll() == 누가 요청해도 허가한다.
                                 .requestMatchers(
-                                        "/members/sign-in",
-                                        "v1/users/signup/general",
-                                        "v1/users/signin/general"
+                                        "members/signup/general",
+                                        "members/signin/general"
                                 )
                                 .permitAll()
                                 .requestMatchers(
@@ -49,7 +48,8 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+
+        return new BCryptPasswordEncoder();
     }
 
 }

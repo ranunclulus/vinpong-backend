@@ -3,21 +3,19 @@ package com.project.vinpong.web.controller;
 import com.project.vinpong.apiPayload.ApiResponse;
 import com.project.vinpong.converter.MemberConverter;
 import com.project.vinpong.domain.Member;
+import com.project.vinpong.jwt.JwtSecurityUtil;
 import com.project.vinpong.jwt.JwtToken;
 import com.project.vinpong.service.MemberService.MemberCommandService;
 import com.project.vinpong.web.dto.MemberRequestDTO;
 import com.project.vinpong.web.dto.MemberResponseDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1/users")
+@RequestMapping("/members")
 public class MemberRestController {
     private final MemberCommandService memberCommandService;
 
@@ -32,4 +30,5 @@ public class MemberRestController {
         JwtToken jwtToken = memberCommandService.signIn(request.getUsername(), request.getPassword());
         return ApiResponse.onSuccess(MemberConverter.toSignInResultDTO(jwtToken));
     }
+
 }

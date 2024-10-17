@@ -9,6 +9,7 @@ import com.project.vinpong.web.dto.MemberRequestDTO;
 import com.project.vinpong.web.dto.MemberResponseDTO;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MemberConverter {
     public static MemberResponseDTO.JoinResultDTO toJoinResultDTO(Member member) {
@@ -18,7 +19,7 @@ public class MemberConverter {
                 .build();
     }
 
-    public static Member toMember(MemberRequestDTO.JoinDTO request) {
+    public static Member toMember(MemberRequestDTO.JoinDTO request, String encodePassword) {
         SocialType socialType = null;
 
         Gender gender = null;
@@ -33,7 +34,7 @@ public class MemberConverter {
         return Member.builder()
                 .usernamae(request.getUsername())
                 .id(request.getId())
-                .password(request.getPassword())
+                .password(encodePassword)
                 .phonenumber(request.getPhonenumber())
                 .email(request.getEmail())
                 .gender(gender)
@@ -43,6 +44,7 @@ public class MemberConverter {
                 .memberStatus(MemberStatus.ACTIVE)
                 .itemList(new ArrayList<>())
                 .memberStyleList(new ArrayList<>())
+                .roles(new ArrayList<>(List.of("USER")))
                 .build();
 
     }
