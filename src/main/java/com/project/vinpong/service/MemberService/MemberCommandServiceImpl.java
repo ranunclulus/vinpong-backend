@@ -53,14 +53,10 @@ public class MemberCommandServiceImpl implements MemberCommandService {
     @Override
     @Transactional
     public JwtToken signIn(String username, String password) {
-        //System.out.println(passwordEncoder.encode(password));
         UsernamePasswordAuthenticationToken authenticationToken
                 = new UsernamePasswordAuthenticationToken(username, password);
-        System.out.println(authenticationToken.toString());
         Authentication authentication =
                 authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-        System.out.println("=====================");
-        System.out.println(authentication.toString());
         return jwtTokenProvider.generateToken(authentication);
     }
 }
