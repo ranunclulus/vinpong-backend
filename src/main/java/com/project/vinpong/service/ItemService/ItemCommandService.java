@@ -4,5 +4,5 @@ import com.project.vinpong.domain.Item;
 import com.project.vinpong.web.dto.ItemRequestDTO;
 
 public interface ItemCommandService {
-    public Item joinItem(ItemRequestDTO.JoinDTO request);
+    public Item joinItem(ItemRequestDTO.JoinDTO request, String sellerName);
 }
