@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1/items")
+@RequestMapping("/items")
 public class ItemRestController {
     private final ItemCommandService itemCommandService;
 

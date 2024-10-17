@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1/users")
+@RequestMapping("/members")
 public class MemberRestController {
     private final MemberCommandService memberCommandService;
 
@@ -32,4 +32,5 @@ public class MemberRestController {
         JwtToken jwtToken = memberCommandService.signIn(request.getUsername(), request.getPassword());
         return ApiResponse.onSuccess(MemberConverter.toSignInResultDTO(jwtToken));
     }
+
 }

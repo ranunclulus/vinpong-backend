@@ -9,6 +9,7 @@ import com.project.vinpong.web.dto.MemberRequestDTO;
 import com.project.vinpong.web.dto.MemberResponseDTO;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MemberConverter {
     public static MemberResponseDTO.JoinResultDTO toJoinResultDTO(Member member) {
@@ -43,6 +44,7 @@ public class MemberConverter {
                 .memberStatus(MemberStatus.ACTIVE)
                 .itemList(new ArrayList<>())
                 .memberStyleList(new ArrayList<>())
+                .roles(new ArrayList<>(List.of("USER")))
                 .build();
 
     }
