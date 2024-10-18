@@ -59,4 +59,19 @@ public class ItemCommandServiceImpl implements ItemCommandService{
         itemCategoryList.forEach(itemCategory -> itemCategory.setItem(newItem));
         return itemRepository.save(newItem);
     }
+
+    @Override
+    public List<Item> searchByStyleAndCategory(ItemRequestDTO.searchDTO request) {
+        List<Item> allItems = itemRepository.findAll();
+
+        List<Style> styleList = request.getItemStyleList().stream()
+                .map(styleId -> {return styleRepository.findById(styleId).orElseThrow(() -> new StyleHandler(ErrorStatus.STYLE_NOT_FOUND));
+                }).collect(Collectors.toList());
+
+        List<Category> categoryList = request.getItemCategoryList().stream()
+                .map(categoryId -> {return categoryRepository.findById(categoryId).orElseThrow(() -> new CategoryHandler(ErrorStatus.CATEGORY_NOT_FOUND));
+                }).collect(Collectors.toList());
+
+        return null;
+    }
 }
