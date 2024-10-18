@@ -10,6 +10,7 @@ import com.project.vinpong.web.dto.ItemResponseDTO;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ItemConverter {
     public static ItemResponseDTO.JoinResultDTO toJoinResultDTO(Item item) {
@@ -78,6 +79,17 @@ public class ItemConverter {
     }
 
     public static List<ItemResponseDTO.ReadResultDTO> toSearchItemsResultDTO(List<Item> items) {
-
+        return items.stream()
+                .map(item -> ItemResponseDTO.ReadResultDTO.builder()
+                        .itemName(item.getItemName())
+                        .price(item.getPrice())
+                        .itemStatus(item.getItemStatus())
+                        .itemSize(item.getItemSize())
+                        .description(item.getDescription())
+                        .itemState(item.getItemState())
+                        .firstItemImage(item.getItemImageList().isEmpty() ? null : item.getItemImageList().get(0).getItemImageUrl())
+                        .build()
+                )
+                .collect(Collectors.toList());
     }
 }
