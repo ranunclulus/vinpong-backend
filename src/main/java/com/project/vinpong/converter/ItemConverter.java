@@ -9,6 +9,7 @@ import com.project.vinpong.web.dto.ItemRequestDTO;
 import com.project.vinpong.web.dto.ItemResponseDTO;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ItemConverter {
     public static ItemResponseDTO.JoinResultDTO toJoinResultDTO(Item item) {
@@ -73,6 +74,10 @@ public class ItemConverter {
                 .itemCategoryList(new ArrayList<>())
                 .itemImageList(new ArrayList<>())
                 .build();
+
+    }
+
+    public static List<ItemResponseDTO.ReadResultDTO> toSearchItemsResultDTO(List<Item> items) {
 
     }
 }

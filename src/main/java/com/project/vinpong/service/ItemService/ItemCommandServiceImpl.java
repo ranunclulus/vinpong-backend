@@ -72,6 +72,16 @@ public class ItemCommandServiceImpl implements ItemCommandService{
                 .map(categoryId -> {return categoryRepository.findById(categoryId).orElseThrow(() -> new CategoryHandler(ErrorStatus.CATEGORY_NOT_FOUND));
                 }).collect(Collectors.toList());
 
-        return null;
+        return allItems.stream()
+                .filter(item -> styleList == null ||
+                        item.getItemStyleList().stream()
+                                .anyMatch(itemStyle -> styleList.contains(itemStyle.getStyle())))
+                .filter(item -> categoryList == null ||
+                        item.getItemCategoryList().stream()
+                                .anyMatch(itemCategory -> styleList.contains(itemCategory.getCategory())))
+                .filter(item -> request.getSearchKeyword() == null ||
+                        (item.getItemName() != null) && item.getItemName().contains(request.getSearchKeyword()))
+                .collect(Collectors.toList());
     }
 }
+

@@ -29,7 +29,8 @@ public class ItemRestController {
     @GetMapping()
     public ApiResponse<List<ItemResponseDTO.ReadResultDTO>> searchByStyleAndCategory(@RequestBody @Valid ItemRequestDTO.searchDTO request) {
         List<Item> items = itemCommandService.searchByStyleAndCategory(request);
-        return null;
+
+        return ApiResponse.onSuccess(ItemConverter.toSearchItemsResultDTO(items));
     }
 
 }

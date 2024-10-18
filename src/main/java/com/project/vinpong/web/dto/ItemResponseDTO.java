@@ -40,6 +40,5 @@ public class ItemResponseDTO {
         String description;
         ItemState itemState;
         String firstItemImage;
-
     }
 }
