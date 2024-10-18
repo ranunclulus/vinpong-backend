@@ -64,13 +64,19 @@ public class ItemCommandServiceImpl implements ItemCommandService{
     public List<Item> searchByStyleAndCategory(ItemRequestDTO.searchDTO request) {
         List<Item> allItems = itemRepository.findAll();
 
-        List<Style> styleList = request.getItemStyleList().stream()
-                .map(styleId -> {return styleRepository.findById(styleId).orElseThrow(() -> new StyleHandler(ErrorStatus.STYLE_NOT_FOUND));
-                }).collect(Collectors.toList());
+        List<Style> styleList = Optional.ofNullable(request.getItemStyleList())
+                .map(list -> list.stream()
+                        .map(styleId -> styleRepository.findById(styleId)
+                                .orElseThrow(() -> new StyleHandler(ErrorStatus.STYLE_NOT_FOUND)))
+                        .collect(Collectors.toList()))
+                .orElse(null);
 
-        List<Category> categoryList = request.getItemCategoryList().stream()
-                .map(categoryId -> {return categoryRepository.findById(categoryId).orElseThrow(() -> new CategoryHandler(ErrorStatus.CATEGORY_NOT_FOUND));
-                }).collect(Collectors.toList());
+        List<Category> categoryList = Optional.ofNullable(request.getItemCategoryList())
+                .map(list -> list.stream()
+                        .map(categoryId -> categoryRepository.findById(categoryId)
+                                .orElseThrow(() -> new CategoryHandler(ErrorStatus.CATEGORY_NOT_FOUND)))
+                        .collect(Collectors.toList()))
+                .orElse(null);
 
         return allItems.stream()
                 .filter(item -> styleList == null ||
@@ -84,4 +90,3 @@ public class ItemCommandServiceImpl implements ItemCommandService{
                 .collect(Collectors.toList());
     }
 }
-

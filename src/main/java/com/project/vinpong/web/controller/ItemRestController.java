@@ -32,5 +32,5 @@ public class ItemRestController {
 
         return ApiResponse.onSuccess(ItemConverter.toSearchItemsResultDTO(items));
     }
-
 }
+
