@@ -16,4 +16,16 @@ spring:
 jwt:
   header: Authorization
   secret: ${JWT}
-  token-validity-in-seconds: 86400
+  token-validity-in-seconds: 8640000
+
+cloud:
+  aws:
+    s3:
+      bucket: vinpong-bucket
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+    credentials:
+      accessKey: ${AWS_ACCESS_KEY_ID}
+      secretKey: ${AWS_SECRET_ACCESS_KEY}
