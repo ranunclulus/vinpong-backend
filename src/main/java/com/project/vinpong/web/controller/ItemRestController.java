@@ -9,10 +9,9 @@ import com.project.vinpong.web.dto.ItemRequestDTO;
 import com.project.vinpong.web.dto.ItemResponseDTO;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -26,4 +25,12 @@ public class ItemRestController {
         Item item = itemCommandService.joinItem(request, sellerName);
         return ApiResponse.onSuccess(ItemConverter.toJoinResultDTO(item));
     }
+
+    @GetMapping()
+    public ApiResponse<List<ItemResponseDTO.ReadResultDTO>> searchByStyleAndCategory(@RequestBody @Valid ItemRequestDTO.searchDTO request) {
+        List<Item> items = itemCommandService.searchByStyleAndCategory(request);
+
+        return ApiResponse.onSuccess(ItemConverter.toSearchItemsResultDTO(items));
+    }
 }
+

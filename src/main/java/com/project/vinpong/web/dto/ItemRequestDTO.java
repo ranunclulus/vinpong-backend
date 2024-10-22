@@ -16,4 +16,13 @@ public class ItemRequestDTO {
         List<Long> itemCategoryList;
         List<Long> itemStyleList;
     }
+
+    @Getter
+    public static class searchDTO {
+        String searchKeyword;
+        List<Long> itemCategoryList;
+        List<Long> itemStyleList;
+    }
+
+
 }
