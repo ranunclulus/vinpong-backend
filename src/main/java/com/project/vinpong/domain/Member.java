@@ -30,15 +30,13 @@ public class Member extends BaseEntity implements UserDetails {
     @Column(nullable = false, length = 20)
     private String usernamae;
 
-    @Column(nullable = false, length = 20)
-    private String id;
 
     @Column(nullable = false)
     private String password;
 
     private String phonenumber;
 
-    @Column(length = 50)
+    @Column(length = 50, unique = true, nullable = false)
     private String email;
 
     @Enumerated(EnumType.STRING)

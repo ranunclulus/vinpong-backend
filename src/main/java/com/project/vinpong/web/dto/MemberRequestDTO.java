@@ -11,8 +11,6 @@ public class MemberRequestDTO {
     public static class JoinDTO {
         String username;
 
-        String id;
-
         String password;
 
         String phonenumber;
