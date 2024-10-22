@@ -22,6 +22,9 @@ cloud:
   aws:
     s3:
       bucket: vinpong-bucket
+      path:
+        item: item
+        member: member
     region:
       static: ap-northeast-2
     stack:

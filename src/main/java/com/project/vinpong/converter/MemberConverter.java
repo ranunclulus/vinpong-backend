@@ -33,7 +33,6 @@ public class MemberConverter {
         }
         return Member.builder()
                 .usernamae(request.getUsername())
-                .id(request.getId())
                 .password(encodePassword)
                 .phonenumber(request.getPhonenumber())
                 .email(request.getEmail())

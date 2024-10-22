@@ -17,12 +17,24 @@ import org.springframework.context.annotation.Configuration;
 public class AmazonConfig {
 
     private AWSCredentials awsCredentials;
+
     @Value("${cloud.aws.credentials.accessKey}")
     private String accessKey;
+
     @Value("${cloud.aws.credentials.secretKey}")
     private String secretKey;
+
     @Value("${cloud.aws.region.static}")
     private String region;
+
+    @Value(("${cloud.aws.s3.bucket}"))
+    private String bucket;
+
+    @Value(("${cloud.aws.s3.path.item}"))
+    private String itemPath;
+
+    @Value(("${cloud.aws.s3.path.member}"))
+    private String memberPath;
 
     @PostConstruct
     public void init() {
