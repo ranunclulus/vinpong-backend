@@ -5,6 +5,7 @@ import com.project.vinpong.jwt.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -27,9 +28,12 @@ public class SecurityConfig {
                         authHttp -> authHttp // HTTP 요청 허가 관련 설정을 하고 싶다.
                                 // requestMatchers == 어떤 URL로 오는 요청에 대하여 설정하는지
                                 // permitAll() == 누가 요청해도 허가한다.
+                                .requestMatchers("/swagger", "/swagger-ui.html", "/swagger-ui/**", "/api-docs", "/api-docs/**", "/v3/api-docs/**")
+                                .permitAll()
                                 .requestMatchers(
                                         "members/signup/general",
                                         "members/signin/general"
+
                                 )
                                 .permitAll()
                                 .requestMatchers(
