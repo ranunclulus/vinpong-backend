@@ -1,6 +1,7 @@
 package com.project.vinpong.service.MemberService;
 
 import com.project.vinpong.apiPayload.code.status.ErrorStatus;
+import com.project.vinpong.apiPayload.exception.handler.JwtHandler;
 import com.project.vinpong.apiPayload.exception.handler.MemberHandler;
 import com.project.vinpong.apiPayload.exception.handler.StyleHandler;
 import com.project.vinpong.converter.MemberConverter;
@@ -55,12 +56,14 @@ public class MemberCommandServiceImpl implements MemberCommandService {
     public JwtToken signIn(String username, String password) {
         if (!memberRepository.existsByUsernamae(username))
             throw new MemberHandler(ErrorStatus.MEMBER_NOT_FOUND);
-
-
-        UsernamePasswordAuthenticationToken authenticationToken
-                = new UsernamePasswordAuthenticationToken(username, password);
-        Authentication authentication =
-                authenticationManagerBuilder.getObject().authenticate(authenticationToken);
-        return jwtTokenProvider.generateToken(authentication);
+        try {
+            UsernamePasswordAuthenticationToken authenticationToken
+                    = new UsernamePasswordAuthenticationToken(username, password);
+            Authentication authentication =
+                    authenticationManagerBuilder.getObject().authenticate(authenticationToken);
+            return jwtTokenProvider.generateToken(authentication);
+        } catch (Exception e) {
+            throw new JwtHandler(ErrorStatus.PASSWORD_NOT_MATCH);
+        }
     }
 }
