@@ -53,6 +53,10 @@ public class MemberCommandServiceImpl implements MemberCommandService {
     @Override
     @Transactional
     public JwtToken signIn(String username, String password) {
+        if (!memberRepository.existsByUsernamae(username))
+            throw new MemberHandler(ErrorStatus.MEMBER_NOT_FOUND);
+
+
         UsernamePasswordAuthenticationToken authenticationToken
                 = new UsernamePasswordAuthenticationToken(username, password);
         Authentication authentication =

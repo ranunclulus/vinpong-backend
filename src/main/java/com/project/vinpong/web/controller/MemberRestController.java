@@ -27,6 +27,7 @@ public class MemberRestController {
 
     @PostMapping("/signin/general")
     public ApiResponse<MemberResponseDTO.SignInResultDTO> signIn(@RequestBody @Valid MemberRequestDTO.SignDTO request) {
+
         JwtToken jwtToken = memberCommandService.signIn(request.getUsername(), request.getPassword());
         return ApiResponse.onSuccess(MemberConverter.toSignInResultDTO(jwtToken));
     }
