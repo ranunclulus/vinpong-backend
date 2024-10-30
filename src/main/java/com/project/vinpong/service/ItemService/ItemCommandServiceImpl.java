@@ -19,6 +19,7 @@ import com.project.vinpong.repository.MemberRepository;
 import com.project.vinpong.repository.StyleRepository;
 import com.project.vinpong.web.dto.ItemRequestDTO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -87,6 +88,18 @@ public class ItemCommandServiceImpl implements ItemCommandService{
                                 .anyMatch(itemCategory -> styleList.contains(itemCategory.getCategory())))
                 .filter(item -> request.getSearchKeyword() == null ||
                         (item.getItemName() != null) && item.getItemName().contains(request.getSearchKeyword()))
+                .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<Item> getAllItemsByShop(Long shopId) {
+        System.out.println("여기까지 도달은 했다!!!!!!!!!!!!!!!!!!");
+        List<Item> allItems = itemRepository.findAll();
+        for(Item item : allItems) {
+            System.out.println(item.toString());
+        }
+        return allItems.stream()
+                .filter(item -> item.getSeller().getMemberId() == shopId)
                 .collect(Collectors.toList());
     }
 }
