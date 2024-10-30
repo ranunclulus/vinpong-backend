@@ -78,11 +78,11 @@ public class ItemConverter {
 
     }
 
-    public static List<ItemResponseDTO.ReadResultDTO> toSearchItemsResultDTO(List<Item> items, String seller) {
+    public static List<ItemResponseDTO.ReadResultDTO> toSearchItemsResultDTO(List<Item> items) {
         return items.stream()
                 .map(item -> ItemResponseDTO.ReadResultDTO.builder()
                         .itemName(item.getItemName())
-                        .seller(seller)
+                        .seller(item.getSeller().getUsernamae())
                         .price(item.getPrice())
                         .itemStatus(item.getItemStatus())
                         .itemSize(item.getItemSize())
