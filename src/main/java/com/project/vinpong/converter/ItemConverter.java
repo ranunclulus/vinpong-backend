@@ -82,6 +82,7 @@ public class ItemConverter {
         return items.stream()
                 .map(item -> ItemResponseDTO.ReadResultDTO.builder()
                         .itemName(item.getItemName())
+                        .seller(item.getSeller().getUsernamae())
                         .price(item.getPrice())
                         .itemStatus(item.getItemStatus())
                         .itemSize(item.getItemSize())

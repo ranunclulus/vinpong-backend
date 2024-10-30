@@ -3,12 +3,18 @@ package com.project.vinpong.web.controller;
 import com.project.vinpong.apiPayload.ApiResponse;
 import com.project.vinpong.converter.ItemConverter;
 import com.project.vinpong.domain.Item;
+import com.project.vinpong.domain.Member;
 import com.project.vinpong.jwt.JwtSecurityUtil;
 import com.project.vinpong.service.ItemService.ItemCommandService;
+import com.project.vinpong.service.MemberService.CustomUserDetailService;
+import com.project.vinpong.service.MemberService.MemberCommandService;
 import com.project.vinpong.web.dto.ItemRequestDTO;
 import com.project.vinpong.web.dto.ItemResponseDTO;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,6 +24,7 @@ import java.util.List;
 @RequestMapping("/items")
 public class ItemRestController {
     private final ItemCommandService itemCommandService;
+    private final MemberCommandService memberCommandService;
 
     @PostMapping()
     public ApiResponse<ItemResponseDTO.JoinResultDTO> join(@RequestBody @Valid ItemRequestDTO.JoinDTO request) {
@@ -29,8 +36,16 @@ public class ItemRestController {
     @GetMapping()
     public ApiResponse<List<ItemResponseDTO.ReadResultDTO>> searchByStyleAndCategory(@RequestBody @Valid ItemRequestDTO.searchDTO request) {
         List<Item> items = itemCommandService.searchByStyleAndCategory(request);
+        return ApiResponse.onSuccess(ItemConverter.toSearchItemsResultDTO(items));
+    }
+
+    @GetMapping("/{shopId}")
+    public ApiResponse<List<ItemResponseDTO.ReadResultDTO>> getAllItemsByShop(@PathVariable("shopId") Long shopId) {
+
+        List<Item> items = itemCommandService.getAllItemsByShop(shopId);
 
         return ApiResponse.onSuccess(ItemConverter.toSearchItemsResultDTO(items));
     }
+
 }
 

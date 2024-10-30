@@ -9,4 +9,6 @@ public interface ItemCommandService {
     public Item joinItem(ItemRequestDTO.JoinDTO request, String sellerName);
 
     List<Item> searchByStyleAndCategory(ItemRequestDTO.searchDTO request);
+
+    List<Item> getAllItemsByShop(Long shopId);
 }
