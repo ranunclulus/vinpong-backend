@@ -47,5 +47,11 @@ public class ItemRestController {
         return ApiResponse.onSuccess(ItemConverter.toSearchItemsResultDTO(items));
     }
 
+    @GetMapping("/{itemId}")
+    public ApiResponse<ItemResponseDTO.ReadResultDTO> searchByItemid(@PathVariable("itemId") Long itemId) {
+        Item item = itemCommandService.searchById(itemId);
+        return ApiResponse.onSuccess(ItemConverter.toItemtDTO(item));
+    }
+
 }
 

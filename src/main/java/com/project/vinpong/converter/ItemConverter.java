@@ -93,4 +93,8 @@ public class ItemConverter {
                 )
                 .collect(Collectors.toList());
     }
+
+    public static ItemResponseDTO.ReadResultDTO toItemtDTO(Item item) {
+        return null;
+    }
 }
