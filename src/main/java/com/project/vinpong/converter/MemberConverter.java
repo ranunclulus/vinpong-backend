@@ -19,7 +19,7 @@ public class MemberConverter {
                 .build();
     }
 
-    public static Member toMember(MemberRequestDTO.JoinDTO request, String encodePassword) {
+    public static Member toMember(MemberRequestDTO.JoinDTO request, String profileImageUrl, String encodePassword) {
         SocialType socialType = null;
 
         Gender gender = null;
@@ -38,7 +38,7 @@ public class MemberConverter {
                 .email(request.getEmail())
                 .gender(gender)
                 .description(request.getDescription())
-                .profileImageUrl(request.getProfileImageUrl())
+                .profileImageUrl(profileImageUrl)
                 .socialType(socialType)
                 .memberStatus(MemberStatus.ACTIVE)
                 .itemList(new ArrayList<>())

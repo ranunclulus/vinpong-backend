@@ -5,6 +5,7 @@ import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
 import com.project.vinpong.config.AmazonConfig;
 import com.project.vinpong.domain.Uuid;
+import com.project.vinpong.repository.UuidRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -18,6 +19,7 @@ import java.io.IOException;
 public class AmazonS3Manager {
     private final AmazonS3 amazonS3;
     private final AmazonConfig amazonConfig;
+    private final UuidRepository uuidRepository;
 
     public String uploadFile(String keyName, MultipartFile file) {
         ObjectMetadata metadata = new ObjectMetadata();

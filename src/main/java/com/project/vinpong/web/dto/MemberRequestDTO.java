@@ -1,13 +1,14 @@
 package com.project.vinpong.web.dto;
 
-import lombok.Getter;
-import lombok.ToString;
+import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
 public class MemberRequestDTO {
 
     @Getter
+    @Setter
     public static class JoinDTO {
         String username;
 
@@ -21,11 +22,12 @@ public class MemberRequestDTO {
 
         String description;
 
-        String profileImageUrl;
+        MultipartFile profileImage;
 
         String socialType;
 
         List<Long> preferStyles;
+
     }
 
     @Getter
