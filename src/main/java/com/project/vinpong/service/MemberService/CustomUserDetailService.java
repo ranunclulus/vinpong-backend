@@ -4,6 +4,8 @@ import com.project.vinpong.apiPayload.code.status.ErrorStatus;
 import com.project.vinpong.apiPayload.exception.handler.MemberHandler;
 import com.project.vinpong.domain.Member;
 import com.project.vinpong.repository.MemberRepository;
+import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.Jwts;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -31,4 +33,5 @@ public class CustomUserDetailService implements UserDetailsService {
                 .roles(member.getRoles().toArray(new String[0]))
                 .build();
     }
+
 }
