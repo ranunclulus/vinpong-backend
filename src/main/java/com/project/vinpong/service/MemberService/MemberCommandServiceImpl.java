@@ -46,6 +46,8 @@ public class MemberCommandServiceImpl implements MemberCommandService {
     public Member joinMember(MemberRequestDTO.JoinDTO request) {
         if (memberRepository.existsByUsernamae(request.getUsername()))
             throw new MemberHandler(ErrorStatus.ALREADY_EXIST_MEMBERNAME);
+        if (memberRepository.existsByEmail(request.getEmail()))
+            throw new MemberHandler(ErrorStatus.ALREADY_EXIST_EMAIL);
         String profileImageUrl = "";
         if (!request.getProfileImage().isEmpty()) {
             String uuid = UUID.randomUUID().toString();
