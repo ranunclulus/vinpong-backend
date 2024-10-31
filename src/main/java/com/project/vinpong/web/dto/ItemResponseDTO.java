@@ -47,13 +47,28 @@ public class ItemResponseDTO {
     @NoArgsConstructor
     @AllArgsConstructor
     public static class ReadDetailResultDTO {
-        Member seller;
+        SellerDTO seller;
         String itemName;
         Integer price;
         ItemStatus itemStatus;
         ItemSize itemSize;
         String description;
         ItemState itemState;
-        List<ItemImage> itemImageList;
+        List<String> itemImageList;
     }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class SellerDTO {
+        String username;
+        String email;
+        String gender;
+        String description;
+        String profileImageUrl;
+    }
+
+
+
 }

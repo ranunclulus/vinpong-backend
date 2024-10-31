@@ -95,15 +95,23 @@ public class ItemConverter {
     }
 
     public static ItemResponseDTO.ReadDetailResultDTO toItemtDTO(Item item) {
+        List<String> itemImageUrls = item.getItemImageList().stream()
+                .map(itemImage -> itemImage.getItemImageUrl()).collect(Collectors.toList());
         return ItemResponseDTO.ReadDetailResultDTO.builder()
-                .seller(item.getSeller())
+                .seller(ItemResponseDTO.SellerDTO.builder()
+                        .username(item.getSeller().getUsername())
+                        .email(item.getSeller().getEmail())
+                        .gender(item.getSeller().getGender().toString())
+                        .description(item.getSeller().getDescription())
+                        .profileImageUrl(item.getSeller().getProfileImageUrl())
+                        .build())
                 .price(item.getPrice())
                 .itemState(item.getItemState())
                 .itemStatus(item.getItemStatus())
                 .itemSize(item.getItemSize())
                 .itemName(item.getItemName())
                 .description(item.getDescription())
-                .itemImageList(item.getItemImageList())
+                .itemImageList(itemImageUrls)
                 .build();
 
     }
