@@ -3,8 +3,11 @@ package com.project.vinpong.aws.s3;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectRequest;
+import com.project.vinpong.apiPayload.code.status.ErrorStatus;
+import com.project.vinpong.apiPayload.exception.handler.S3Handler;
 import com.project.vinpong.config.AmazonConfig;
 import com.project.vinpong.domain.Uuid;
+import com.project.vinpong.repository.UuidRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
@@ -29,7 +32,7 @@ public class AmazonS3Manager {
                     file.getInputStream(),
                     metadata));
         } catch (IOException e) {
-            log.error("error at AmazonS3Manager uploadFile : {}", (Object) e.getStackTrace());
+            throw new S3Handler(ErrorStatus.IMAGE_UPLOAD_FAIL);
         }
         return amazonS3.getUrl(amazonConfig.getBucket(), keyName).toString();
     }
