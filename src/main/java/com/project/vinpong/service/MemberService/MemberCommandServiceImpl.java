@@ -46,13 +46,15 @@ public class MemberCommandServiceImpl implements MemberCommandService {
     public Member joinMember(MemberRequestDTO.JoinDTO request) {
         if (memberRepository.existsByUsernamae(request.getUsername()))
             throw new MemberHandler(ErrorStatus.ALREADY_EXIST_MEMBERNAME);
+        String profileImageUrl = "";
+        if (!request.getProfileImage().isEmpty()) {
+            String uuid = UUID.randomUUID().toString();
+            Uuid savedUuid = uuidRepository.save(Uuid.builder()
+                    .uuid(uuid).build());
 
-        String uuid = UUID.randomUUID().toString();
-        Uuid savedUuid = uuidRepository.save(Uuid.builder()
-                .uuid(uuid).build());
-
-        String profileImageUrl = amazonS3Manager.uploadFile(
-                amazonS3Manager.generateMemberKeyName(savedUuid), request.getProfileImage());
+            profileImageUrl = amazonS3Manager.uploadFile(
+                    amazonS3Manager.generateMemberKeyName(savedUuid), request.getProfileImage());
+        }
 
         Member newMember = MemberConverter.toMember(request, profileImageUrl, passwordEncoder.encode(request.getPassword()));
         List<Style> styleList = request.getPreferStyles().stream()
