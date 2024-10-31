@@ -23,7 +23,9 @@ public enum ErrorStatus implements BaseErrorCode {
     EXPIRED_ACCESSTOKEN(HttpStatus.FORBIDDEN, "JWT4003", "만료된 토큰입니다."),
     UNSUPPORTED_ACCESSTOKEN(HttpStatus.FORBIDDEN, "JWT4003", "만료된 토큰입니다."),
 
-    IMAGE_UPLOAD_FAIL(HttpStatus.BAD_REQUEST, "S34001", "S3 버킷에 이미지 등록을 실패했습니다.");
+    IMAGE_UPLOAD_FAIL(HttpStatus.BAD_REQUEST, "S34001", "S3 버킷에 이미지 등록을 실패했습니다."),
+
+    ITEM_NOT_FOUND(HttpStatus.NOT_FOUND, "ITEM4001", "아이템이 없습니다");
 
     private final HttpStatus httpStatus;
     private final String code;

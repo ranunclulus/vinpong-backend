@@ -2,6 +2,7 @@ package com.project.vinpong.service.ItemService;
 
 import com.project.vinpong.apiPayload.code.status.ErrorStatus;
 import com.project.vinpong.apiPayload.exception.handler.CategoryHandler;
+import com.project.vinpong.apiPayload.exception.handler.ItemHandler;
 import com.project.vinpong.apiPayload.exception.handler.MemberHandler;
 import com.project.vinpong.apiPayload.exception.handler.StyleHandler;
 import com.project.vinpong.converter.ItemCategoryConverter;
@@ -93,13 +94,16 @@ public class ItemCommandServiceImpl implements ItemCommandService{
 
     @Override
     public List<Item> getAllItemsByShop(Long shopId) {
-        System.out.println("여기까지 도달은 했다!!!!!!!!!!!!!!!!!!");
         List<Item> allItems = itemRepository.findAll();
-        for(Item item : allItems) {
-            System.out.println(item.toString());
-        }
         return allItems.stream()
                 .filter(item -> item.getSeller().getMemberId() == shopId)
                 .collect(Collectors.toList());
+    }
+
+    @Override
+    public Item searchById(Long itemId) {
+        Optional<Item> item = itemRepository.findById(itemId);
+        if (item.isEmpty()) throw new ItemHandler(ErrorStatus.ITEM_NOT_FOUND);
+        return item.get();
     }
 }
