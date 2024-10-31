@@ -39,12 +39,18 @@ public class ItemRestController {
         return ApiResponse.onSuccess(ItemConverter.toSearchItemsResultDTO(items));
     }
 
-    @GetMapping("/{shopId}")
+    @GetMapping("/itemlist/{shopId}")
     public ApiResponse<List<ItemResponseDTO.ReadResultDTO>> getAllItemsByShop(@PathVariable("shopId") Long shopId) {
 
         List<Item> items = itemCommandService.getAllItemsByShop(shopId);
 
         return ApiResponse.onSuccess(ItemConverter.toSearchItemsResultDTO(items));
+    }
+
+    @GetMapping("/{itemId}")
+    public ApiResponse<ItemResponseDTO.ReadDetailResultDTO> searchByItemid(@PathVariable("itemId") Long itemId) {
+        Item item = itemCommandService.searchById(itemId);
+        return ApiResponse.onSuccess(ItemConverter.toItemtDTO(item));
     }
 
 }

@@ -11,4 +11,6 @@ public interface ItemCommandService {
     List<Item> searchByStyleAndCategory(ItemRequestDTO.searchDTO request);
 
     List<Item> getAllItemsByShop(Long shopId);
+
+    Item searchById(Long itemId);
 }
