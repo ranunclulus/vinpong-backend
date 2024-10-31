@@ -94,7 +94,17 @@ public class ItemConverter {
                 .collect(Collectors.toList());
     }
 
-    public static ItemResponseDTO.ReadResultDTO toItemtDTO(Item item) {
-        return null;
+    public static ItemResponseDTO.ReadDetailResultDTO toItemtDTO(Item item) {
+        return ItemResponseDTO.ReadDetailResultDTO.builder()
+                .seller(item.getSeller())
+                .price(item.getPrice())
+                .itemState(item.getItemState())
+                .itemStatus(item.getItemStatus())
+                .itemSize(item.getItemSize())
+                .itemName(item.getItemName())
+                .description(item.getDescription())
+                .itemImageList(item.getItemImageList())
+                .build();
+
     }
 }

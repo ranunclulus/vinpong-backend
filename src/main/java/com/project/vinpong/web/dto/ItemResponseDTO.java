@@ -41,4 +41,19 @@ public class ItemResponseDTO {
         ItemState itemState;
         String firstItemImage;
     }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class ReadDetailResultDTO {
+        Member seller;
+        String itemName;
+        Integer price;
+        ItemStatus itemStatus;
+        ItemSize itemSize;
+        String description;
+        ItemState itemState;
+        List<ItemImage> itemImageList;
+    }
 }
