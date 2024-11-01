@@ -7,6 +7,7 @@ import com.project.vinpong.jwt.JwtSecurityUtil;
 import com.project.vinpong.jwt.JwtToken;
 import com.project.vinpong.jwt.JwtTokenProvider;
 import com.project.vinpong.service.MemberService.MemberCommandService;
+import com.project.vinpong.service.StyleService.StyleCommandService;
 import com.project.vinpong.web.dto.MemberRequestDTO;
 import com.project.vinpong.web.dto.MemberResponseDTO;
 import io.jsonwebtoken.Claims;
@@ -18,6 +19,8 @@ import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.List;
+
 
 @RestController
 @RequiredArgsConstructor
@@ -25,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class MemberRestController {
     private final MemberCommandService memberCommandService;
     private final JwtTokenProvider jwtTokenProvider;
+    private final StyleCommandService styleCommandService;
 
     @PostMapping(value = "/signup/general", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
     public ApiResponse<MemberResponseDTO.JoinResultDTO> join(@ModelAttribute @Valid MemberRequestDTO.JoinDTO request) {
@@ -45,6 +49,7 @@ public class MemberRestController {
         Claims claims = jwtTokenProvider.parseClaims(token);
         String username = (String) claims.get("sub");
         Member member = memberCommandService.getMyProfile(username);
-        return null;
+        List<String> styleList = styleCommandService.findMemberStyleList(member);
+        return ApiResponse.onSuccess(MemberConverter.toMemberProfileResultDTO(member, styleList));
     }
 }

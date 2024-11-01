@@ -53,4 +53,16 @@ public class MemberConverter {
                 .jwtToken(jwtToken)
                 .build();
     }
+
+    public static MemberResponseDTO.MemberProfileResultDTO toMemberProfileResultDTO(Member member, List<String> styleList) {
+        return MemberResponseDTO.MemberProfileResultDTO.builder()
+                .username(member.getUsername())
+                .email(member.getEmail())
+                .gender(member.getGender() == null ? "" : member.getGender().toString())
+                .profileImageUrl(member.getProfileImageUrl())
+                .memberStatus(member.getMemberStatus().toString())
+                .itemCount(member.getItemList().size())
+                .memberStyleList(styleList)
+                .build();
+    }
 }

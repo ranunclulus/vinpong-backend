@@ -25,7 +25,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -82,5 +84,14 @@ public class MemberCommandServiceImpl implements MemberCommandService {
         } catch (Exception e) {
             throw new JwtHandler(ErrorStatus.PASSWORD_NOT_MATCH);
         }
+    }
+
+    @Override
+    public Member getMyProfile(String username) {
+        Optional<Member> member = memberRepository.findByUsernamae(username);
+        if (member.isEmpty())
+            throw new MemberHandler(ErrorStatus.ALREADY_EXIST_MEMBERNAME);
+
+        return member.get();
     }
 }
