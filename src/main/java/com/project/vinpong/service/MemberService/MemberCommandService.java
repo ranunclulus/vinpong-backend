@@ -9,4 +9,5 @@ public interface MemberCommandService {
     public Member joinMember (MemberRequestDTO.JoinDTO request);
     public JwtToken signIn(String username, String password);
 
+    Member getMyProfile(String username);
 }
