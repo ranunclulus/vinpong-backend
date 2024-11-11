@@ -5,6 +5,7 @@ import com.project.vinpong.domain.enums.Gender;
 import com.project.vinpong.domain.enums.SocialType;
 import com.project.vinpong.domain.enums.MemberStatus;
 import com.project.vinpong.jwt.JwtToken;
+import com.project.vinpong.web.dto.KakaoDTO;
 import com.project.vinpong.web.dto.MemberRequestDTO;
 import com.project.vinpong.web.dto.MemberResponseDTO;
 
@@ -63,6 +64,23 @@ public class MemberConverter {
                 .memberStatus(member.getMemberStatus().toString())
                 .itemCount(member.getItemList().size())
                 .memberStyleList(styleList)
+                .build();
+    }
+
+    public static Member kakaoToMember(KakaoDTO.KakaoProfile kakaoProfile) {
+        return Member.builder()
+                .usernamae(kakaoProfile.getProperties().getNickname())
+                .password(null)
+                .phonenumber(null)
+                .email(kakaoProfile.getKakao_account().getEmail())
+                .gender(null)
+                .description(null)
+                .profileImageUrl(null)
+                .socialType(SocialType.KAKAO)
+                .memberStatus(MemberStatus.ACTIVE)
+                .itemList(new ArrayList<>())
+                .memberStyleList(new ArrayList<>())
+                .roles(new ArrayList<>(List.of("USER")))
                 .build();
     }
 }

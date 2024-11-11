@@ -109,4 +109,18 @@ public class MemberCommandServiceImpl implements MemberCommandService {
         System.out.println(kakaoProfile.getProperties().getNickname());
         return null;
     }
+
+    @Override
+    @Transactional
+    public Member kakaoOauthJoin(String accessCode, HttpServletResponse httpServletResponse) {
+        KakaoDTO.OAuthToken oAuthToken = kakaoUtil.requestToken(accessCode);
+        KakaoDTO.KakaoProfile kakaoProfile = kakaoUtil.requestProfile(oAuthToken);
+        if (memberRepository.existsByUsernamae(kakaoProfile.getProperties().getNickname()))
+            throw new MemberHandler(ErrorStatus.ALREADY_EXIST_MEMBERNAME);
+        if (memberRepository.existsByEmail(kakaoProfile.getKakao_account().getEmail()))
+            throw new MemberHandler(ErrorStatus.ALREADY_EXIST_EMAIL);
+
+        Member newMember = MemberConverter.kakaoToMember(kakaoProfile);
+        return memberRepository.save(newMember);
+    }
 }
