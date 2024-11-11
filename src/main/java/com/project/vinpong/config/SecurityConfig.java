@@ -32,7 +32,9 @@ public class SecurityConfig {
                                 .permitAll()
                                 .requestMatchers(
                                         "members/signup/general",
-                                        "members/signin/general"
+                                        "members/signin/general",
+                                        "members/oauth2/**",
+                                        "test/**"
 
                                 )
                                 .permitAll()

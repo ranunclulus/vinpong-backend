@@ -12,6 +12,7 @@ import com.project.vinpong.web.dto.MemberRequestDTO;
 import com.project.vinpong.web.dto.MemberResponseDTO;
 import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpRequest;
@@ -51,5 +52,11 @@ public class MemberRestController {
         Member member = memberCommandService.getMyProfile(username);
         List<String> styleList = styleCommandService.findMemberStyleList(member);
         return ApiResponse.onSuccess(MemberConverter.toMemberProfileResultDTO(member, styleList));
+    }
+
+    @GetMapping("/oauth2/kakao/login")
+    public ApiResponse<MemberResponseDTO.JoinResultDTO> kakaoOauth2Login(@RequestParam("code") String accessCode, HttpServletResponse httpServletResponse) {
+        Member member = memberCommandService.kakaoOauthLogin(accessCode, httpServletResponse);
+        return ApiResponse.onSuccess(MemberConverter.toJoinResultDTO(member));
     }
 }

@@ -1,4 +1,8 @@
 spring:
+  kakao:
+    auth:
+      client: ${KAKAO_OAUTH_REST_API_KEY}
+      redirect: http://localhost:8080/members/oauth2/kakao/login
   datasource:
     url: ${AWS_DB_URL}
     username: ${AWS_DB_USERNAME}
@@ -32,3 +36,4 @@ cloud:
     credentials:
       accessKey: ${AWS_ACCESS_KEY_ID}
       secretKey: ${AWS_SECRET_ACCESS_KEY}
+
