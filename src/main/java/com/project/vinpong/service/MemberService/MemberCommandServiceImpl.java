@@ -16,8 +16,12 @@ import com.project.vinpong.jwt.JwtTokenProvider;
 import com.project.vinpong.repository.StyleRepository;
 import com.project.vinpong.repository.MemberRepository;
 import com.project.vinpong.repository.UuidRepository;
+import com.project.vinpong.util.KakaoUtil;
+import com.project.vinpong.web.dto.KakaoDTO;
 import com.project.vinpong.web.dto.MemberRequestDTO;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.core.Authentication;
@@ -25,7 +29,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -34,7 +37,9 @@ import java.util.stream.Collectors;
 @Service
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
+@Slf4j
 public class MemberCommandServiceImpl implements MemberCommandService {
+    private final KakaoUtil kakaoUtil;
     private final MemberRepository memberRepository;
     private final StyleRepository styleRepository;
     private final AuthenticationManagerBuilder authenticationManagerBuilder;
@@ -93,5 +98,29 @@ public class MemberCommandServiceImpl implements MemberCommandService {
             throw new MemberHandler(ErrorStatus.ALREADY_EXIST_MEMBERNAME);
 
         return member.get();
+    }
+
+    @Override
+    public Member kakaoOauthLogin(String accessCode, HttpServletResponse httpServletResponse) {
+        KakaoDTO.OAuthToken oAuthToken = kakaoUtil.requestToken(accessCode);
+        KakaoDTO.KakaoProfile kakaoProfile = kakaoUtil.requestProfile(oAuthToken);
+        System.out.println("===================");
+        System.out.println(oAuthToken.toString());
+        System.out.println(kakaoProfile.getProperties().getNickname());
+        return null;
+    }
+
+    @Override
+    @Transactional
+    public Member kakaoOauthJoin(String accessCode, HttpServletResponse httpServletResponse) {
+        KakaoDTO.OAuthToken oAuthToken = kakaoUtil.requestToken(accessCode);
+        KakaoDTO.KakaoProfile kakaoProfile = kakaoUtil.requestProfile(oAuthToken);
+        if (memberRepository.existsByUsernamae(kakaoProfile.getProperties().getNickname()))
+            throw new MemberHandler(ErrorStatus.ALREADY_EXIST_MEMBERNAME);
+        if (memberRepository.existsByEmail(kakaoProfile.getKakao_account().getEmail()))
+            throw new MemberHandler(ErrorStatus.ALREADY_EXIST_EMAIL);
+
+        Member newMember = MemberConverter.kakaoToMember(kakaoProfile);
+        return memberRepository.save(newMember);
     }
 }
