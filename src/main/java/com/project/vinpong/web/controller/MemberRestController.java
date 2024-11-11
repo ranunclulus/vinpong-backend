@@ -31,13 +31,13 @@ public class MemberRestController {
     private final JwtTokenProvider jwtTokenProvider;
     private final StyleCommandService styleCommandService;
 
-    @PostMapping(value = "/signup/general", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
+    @PostMapping(value = "/signup", consumes = { MediaType.MULTIPART_FORM_DATA_VALUE })
     public ApiResponse<MemberResponseDTO.JoinResultDTO> join(@ModelAttribute @Valid MemberRequestDTO.JoinDTO request) {
         Member member = memberCommandService.joinMember(request);
         return ApiResponse.onSuccess(MemberConverter.toJoinResultDTO(member));
     }
 
-    @PostMapping("/signin/general")
+    @PostMapping("/signin")
     public ApiResponse<MemberResponseDTO.SignInResultDTO> signIn(@RequestBody @Valid MemberRequestDTO.SignDTO request) {
 
         JwtToken jwtToken = memberCommandService.signIn(request.getUsername(), request.getPassword());
@@ -54,9 +54,16 @@ public class MemberRestController {
         return ApiResponse.onSuccess(MemberConverter.toMemberProfileResultDTO(member, styleList));
     }
 
-    @GetMapping("/oauth2/kakao/login")
-    public ApiResponse<MemberResponseDTO.JoinResultDTO> kakaoOauth2Login(@RequestParam("code") String accessCode, HttpServletResponse httpServletResponse) {
+    @GetMapping("/oauth2/kakao/signin")
+    public ApiResponse<MemberResponseDTO.JoinResultDTO> kakaoOauth2SignIn(@RequestParam("code") String accessCode, HttpServletResponse httpServletResponse) {
         Member member = memberCommandService.kakaoOauthLogin(accessCode, httpServletResponse);
         return ApiResponse.onSuccess(MemberConverter.toJoinResultDTO(member));
     }
+
+    @GetMapping("/oauth2/kakao/signup")
+    public ApiResponse<MemberResponseDTO.JoinResultDTO> kakaoOauth2SignUp(@RequestParam("code") String accessCode, HttpServletResponse httpServletResponse) {
+        Member member = memberCommandService.kakaoOauthJoin(accessCode, httpServletResponse);
+        return ApiResponse.onSuccess(MemberConverter.toJoinResultDTO(member));
+    }
+
 }

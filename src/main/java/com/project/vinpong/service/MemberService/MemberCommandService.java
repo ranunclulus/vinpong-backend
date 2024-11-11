@@ -13,4 +13,6 @@ public interface MemberCommandService {
     Member getMyProfile(String username);
 
     Member kakaoOauthLogin(String accessCode, HttpServletResponse httpServletResponse);
+
+    Member kakaoOauthJoin(String accessCode, HttpServletResponse httpServletResponse);
 }
