@@ -27,15 +27,15 @@ public class ItemRestController {
     private final MemberCommandService memberCommandService;
 
     @PostMapping()
-    public ApiResponse<ItemResponseDTO.JoinResultDTO> join(@RequestBody @Valid ItemRequestDTO.JoinDTO request) {
+    public ApiResponse<ItemResponseDTO.JoinResultDTO> join(@RequestBody @Valid ItemRequestDTO.JoinDTO joinDTO) {
         String sellerName = JwtSecurityUtil.getCurrentMemberId();
-        Item item = itemCommandService.joinItem(request, sellerName);
+        Item item = itemCommandService.joinItem(joinDTO, sellerName);
         return ApiResponse.onSuccess(ItemConverter.toJoinResultDTO(item));
     }
 
     @GetMapping()
-    public ApiResponse<List<ItemResponseDTO.ReadResultDTO>> searchByStyleAndCategory(@RequestBody @Valid ItemRequestDTO.searchDTO request) {
-        List<Item> items = itemCommandService.searchByStyleAndCategory(request);
+    public ApiResponse<List<ItemResponseDTO.ReadResultDTO>> searchByStyleAndCategory(@RequestBody @Valid ItemRequestDTO.searchDTO searchDTO) {
+        List<Item> items = itemCommandService.searchByStyleAndCategory(searchDTO);
         return ApiResponse.onSuccess(ItemConverter.toSearchItemsResultDTO(items));
     }
 

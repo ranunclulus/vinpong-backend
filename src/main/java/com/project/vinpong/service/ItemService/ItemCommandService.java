@@ -6,9 +6,9 @@ import com.project.vinpong.web.dto.ItemRequestDTO;
 import java.util.List;
 
 public interface ItemCommandService {
-    public Item joinItem(ItemRequestDTO.JoinDTO request, String sellerName);
+    public Item joinItem(ItemRequestDTO.JoinDTO joinDTO, String sellerName);
 
-    List<Item> searchByStyleAndCategory(ItemRequestDTO.searchDTO request);
+    List<Item> searchByStyleAndCategory(ItemRequestDTO.searchDTO searchDTO);
 
     List<Item> getAllItemsByShop(Long shopId);
 
