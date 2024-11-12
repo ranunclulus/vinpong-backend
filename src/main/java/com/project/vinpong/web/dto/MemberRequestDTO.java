@@ -46,4 +46,12 @@ public class MemberRequestDTO {
         MultipartFile profileImage;
 
     }
+
+    @Getter
+    @Setter
+    public static class memberStyleUpdateDTO {
+
+        List<String> preferStyles;
+
+    }
 }

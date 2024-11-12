@@ -68,6 +68,15 @@ public class MemberRestController {
         return ApiResponse.onSuccess(MemberConverter.toMemberProfileResultDTO(member, styleList));
     }
 
+    @PatchMapping(value = "/profileimage")
+    public ApiResponse<MemberResponseDTO.MemberProfileResultDTO> updateMemberPreferStyle(@RequestBody @Valid MemberRequestDTO.memberStyleUpdateDTO memberStyleUpdateDTO,
+                                                                                    HttpServletRequest request) {
+        String username = extractUserName(request);
+        Member member = memberCommandService.updateMemberPreferStyle(username, memberStyleUpdateDTO);
+        List<String> styleList = styleCommandService.findMemberStyleList(member);
+        return ApiResponse.onSuccess(MemberConverter.toMemberProfileResultDTO(member, styleList));
+    }
+
     private String extractUserName(HttpServletRequest request) {
         String token = request.getHeader("Authorization").substring(7);
         Claims claims = jwtTokenProvider.parseClaims(token);
