@@ -30,4 +30,5 @@ public class MemberStyle extends BaseEntity {
         this.member = member;
         member.getMemberStyleList().add(this);
     }
+
 }

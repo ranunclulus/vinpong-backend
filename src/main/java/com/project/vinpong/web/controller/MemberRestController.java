@@ -68,7 +68,7 @@ public class MemberRestController {
         return ApiResponse.onSuccess(MemberConverter.toMemberProfileResultDTO(member, styleList));
     }
 
-    @PatchMapping(value = "/profileimage")
+    @PatchMapping(value = "/memberstyle")
     public ApiResponse<MemberResponseDTO.MemberProfileResultDTO> updateMemberPreferStyle(@RequestBody @Valid MemberRequestDTO.memberStyleUpdateDTO memberStyleUpdateDTO,
                                                                                     HttpServletRequest request) {
         String username = extractUserName(request);
