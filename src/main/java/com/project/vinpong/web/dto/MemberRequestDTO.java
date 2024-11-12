@@ -38,4 +38,12 @@ public class MemberRequestDTO {
 
         String password;
     }
+
+    @Getter
+    @Setter
+    public static class updateMemberProfileImageDTO {
+
+        MultipartFile profileImage;
+
+    }
 }

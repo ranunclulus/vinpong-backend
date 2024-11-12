@@ -97,4 +97,8 @@ public class Member extends BaseEntity implements UserDetails {
         //return UserDetails.super.isEnabled();
         return true;
     }
+
+    public void setProfileImageUrl(String profileImageUrl) {
+        this.profileImageUrl = profileImageUrl;
+    }
 }

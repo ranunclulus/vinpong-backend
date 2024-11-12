@@ -50,23 +50,23 @@ public class MemberCommandServiceImpl implements MemberCommandService {
 
     @Override
     @Transactional
-    public Member joinMember(MemberRequestDTO.JoinDTO request) {
-        if (memberRepository.existsByUsernamae(request.getUsername()))
+    public Member joinMember(MemberRequestDTO.JoinDTO joinDTO) {
+        if (memberRepository.existsByUsernamae(joinDTO.getUsername()))
             throw new MemberHandler(ErrorStatus.ALREADY_EXIST_MEMBERNAME);
-        if (memberRepository.existsByEmail(request.getEmail()))
+        if (memberRepository.existsByEmail(joinDTO.getEmail()))
             throw new MemberHandler(ErrorStatus.ALREADY_EXIST_EMAIL);
         String profileImageUrl = "";
-        if (!request.getProfileImage().isEmpty()) {
+        if (!joinDTO.getProfileImage().isEmpty()) {
             String uuid = UUID.randomUUID().toString();
             Uuid savedUuid = uuidRepository.save(Uuid.builder()
                     .uuid(uuid).build());
 
             profileImageUrl = amazonS3Manager.uploadFile(
-                    amazonS3Manager.generateMemberKeyName(savedUuid), request.getProfileImage());
+                    amazonS3Manager.generateMemberKeyName(savedUuid), joinDTO.getProfileImage());
         }
 
-        Member newMember = MemberConverter.toMember(request, profileImageUrl, passwordEncoder.encode(request.getPassword()));
-        List<Style> styleList = request.getPreferStyles().stream()
+        Member newMember = MemberConverter.toMember(joinDTO, profileImageUrl, passwordEncoder.encode(joinDTO.getPassword()));
+        List<Style> styleList = joinDTO.getPreferStyles().stream()
                 .map(styleId -> {return styleRepository.findById(styleId).orElseThrow(() -> new StyleHandler(ErrorStatus.STYLE_NOT_FOUND));
                 }).collect(Collectors.toList());
 
@@ -111,6 +111,25 @@ public class MemberCommandServiceImpl implements MemberCommandService {
         } else {
             return memberRepository.findByUsernamae(kakaoProfile.getProperties().getNickname()).get();
         }
+    }
+
+    @Override
+    @Transactional
+    public Member updateProfileImage(String username, MemberRequestDTO.updateMemberProfileImageDTO updateMemberProfileImageDTO) {
+        if (!memberRepository.existsByUsernamae(username))
+            throw new MemberHandler(ErrorStatus.MEMBER_NOT_FOUND);
+        Member member = memberRepository.findByUsernamae(username).get();
+        String profileImageUrl = "";
+        if (!updateMemberProfileImageDTO.getProfileImage().isEmpty()) {
+            String uuid = UUID.randomUUID().toString();
+            Uuid savedUuid = uuidRepository.save(Uuid.builder()
+                    .uuid(uuid).build());
+
+            profileImageUrl = amazonS3Manager.uploadFile(
+                    amazonS3Manager.generateMemberKeyName(savedUuid), updateMemberProfileImageDTO.getProfileImage());
+        }
+        member.setProfileImageUrl(profileImageUrl);
+        return memberRepository.save(member);
     }
 
 }

@@ -39,18 +39,18 @@ public class ItemCommandServiceImpl implements ItemCommandService{
 
     @Override
     @Transactional
-    public Item joinItem(ItemRequestDTO.JoinDTO request, String sellerName) {
+    public Item joinItem(ItemRequestDTO.JoinDTO joinDTO, String sellerName) {
         Optional<Member> optionalMember = memberRepository.findByUsernamae(sellerName);
         if (optionalMember.isEmpty()) throw new MemberHandler(ErrorStatus.MEMBER_NOT_FOUND);
         Member seller = optionalMember.get();
 
-        Item newItem = ItemConverter.toItem(request, seller);
+        Item newItem = ItemConverter.toItem(joinDTO, seller);
 
-        List<Style> styleList = request.getItemStyleList().stream()
+        List<Style> styleList = joinDTO.getItemStyleList().stream()
                 .map(styleId -> {return styleRepository.findById(styleId).orElseThrow(() -> new StyleHandler(ErrorStatus.STYLE_NOT_FOUND));
                 }).collect(Collectors.toList());
 
-        List<Category> categoryList = request.getItemCategoryList().stream()
+        List<Category> categoryList = joinDTO.getItemCategoryList().stream()
                 .map(categoryId -> {return categoryRepository.findById(categoryId).orElseThrow(() -> new CategoryHandler(ErrorStatus.CATEGORY_NOT_FOUND));
                 }).collect(Collectors.toList());
 
