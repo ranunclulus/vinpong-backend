@@ -55,15 +55,10 @@ public class MemberRestController {
     }
 
     @GetMapping("/oauth2/kakao/signin")
-    public ApiResponse<MemberResponseDTO.JoinResultDTO> kakaoOauth2SignIn(@RequestParam("code") String accessCode, HttpServletResponse httpServletResponse) {
+    public ApiResponse<MemberResponseDTO.SignInResultDTO> kakaoOauth2SignIn(@RequestParam("code") String accessCode, HttpServletResponse httpServletResponse) {
         Member member = memberCommandService.kakaoOauthLogin(accessCode, httpServletResponse);
-        return ApiResponse.onSuccess(MemberConverter.toJoinResultDTO(member));
-    }
-
-    @GetMapping("/oauth2/kakao/signup")
-    public ApiResponse<MemberResponseDTO.JoinResultDTO> kakaoOauth2SignUp(@RequestParam("code") String accessCode, HttpServletResponse httpServletResponse) {
-        Member member = memberCommandService.kakaoOauthJoin(accessCode, httpServletResponse);
-        return ApiResponse.onSuccess(MemberConverter.toJoinResultDTO(member));
+        JwtToken jwtToken = memberCommandService.signIn(member.getUsername(), member.getUsername());
+        return ApiResponse.onSuccess(MemberConverter.toSignInResultDTO(jwtToken));
     }
 
 }

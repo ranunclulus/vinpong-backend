@@ -101,26 +101,16 @@ public class MemberCommandServiceImpl implements MemberCommandService {
     }
 
     @Override
+    @Transactional
     public Member kakaoOauthLogin(String accessCode, HttpServletResponse httpServletResponse) {
         KakaoDTO.OAuthToken oAuthToken = kakaoUtil.requestToken(accessCode);
         KakaoDTO.KakaoProfile kakaoProfile = kakaoUtil.requestProfile(oAuthToken);
-        System.out.println("===================");
-        System.out.println(oAuthToken.toString());
-        System.out.println(kakaoProfile.getProperties().getNickname());
-        return null;
+        if (!memberRepository.existsByUsernamae(kakaoProfile.getProperties().getNickname())) {
+            Member newMember = MemberConverter.kakaoToMember(kakaoProfile, passwordEncoder.encode(kakaoProfile.getProperties().getNickname()));
+            return memberRepository.save(newMember);
+        } else {
+            return memberRepository.findByUsernamae(kakaoProfile.getProperties().getNickname()).get();
+        }
     }
 
-    @Override
-    @Transactional
-    public Member kakaoOauthJoin(String accessCode, HttpServletResponse httpServletResponse) {
-        KakaoDTO.OAuthToken oAuthToken = kakaoUtil.requestToken(accessCode);
-        KakaoDTO.KakaoProfile kakaoProfile = kakaoUtil.requestProfile(oAuthToken);
-        if (memberRepository.existsByUsernamae(kakaoProfile.getProperties().getNickname()))
-            throw new MemberHandler(ErrorStatus.ALREADY_EXIST_MEMBERNAME);
-        if (memberRepository.existsByEmail(kakaoProfile.getKakao_account().getEmail()))
-            throw new MemberHandler(ErrorStatus.ALREADY_EXIST_EMAIL);
-
-        Member newMember = MemberConverter.kakaoToMember(kakaoProfile);
-        return memberRepository.save(newMember);
-    }
 }
