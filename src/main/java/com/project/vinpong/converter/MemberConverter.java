@@ -21,7 +21,6 @@ public class MemberConverter {
     }
 
     public static Member toMember(MemberRequestDTO.JoinDTO request, String profileImageUrl, String encodePassword) {
-        SocialType socialType = null;
 
         Gender gender = null;
         switch (request.getGender()) {
@@ -40,7 +39,7 @@ public class MemberConverter {
                 .gender(gender)
                 .description(request.getDescription())
                 .profileImageUrl(profileImageUrl)
-                .socialType(socialType)
+                .socialType(null)
                 .memberStatus(MemberStatus.ACTIVE)
                 .itemList(new ArrayList<>())
                 .memberStyleList(new ArrayList<>())
@@ -67,10 +66,10 @@ public class MemberConverter {
                 .build();
     }
 
-    public static Member kakaoToMember(KakaoDTO.KakaoProfile kakaoProfile) {
+    public static Member kakaoToMember(KakaoDTO.KakaoProfile kakaoProfile, String encodePassword) {
         return Member.builder()
                 .usernamae(kakaoProfile.getProperties().getNickname())
-                .password(null)
+                .password(encodePassword)
                 .phonenumber(null)
                 .email(kakaoProfile.getKakao_account().getEmail())
                 .gender(null)

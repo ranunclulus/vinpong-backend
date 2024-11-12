@@ -14,5 +14,4 @@ public interface MemberCommandService {
 
     Member kakaoOauthLogin(String accessCode, HttpServletResponse httpServletResponse);
 
-    Member kakaoOauthJoin(String accessCode, HttpServletResponse httpServletResponse);
 }
