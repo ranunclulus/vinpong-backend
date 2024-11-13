@@ -13,6 +13,7 @@ import com.project.vinpong.domain.Uuid;
 import com.project.vinpong.domain.mapping.MemberStyle;
 import com.project.vinpong.jwt.JwtToken;
 import com.project.vinpong.jwt.JwtTokenProvider;
+import com.project.vinpong.repository.MemberStyleRepository;
 import com.project.vinpong.repository.StyleRepository;
 import com.project.vinpong.repository.MemberRepository;
 import com.project.vinpong.repository.UuidRepository;
@@ -47,6 +48,7 @@ public class MemberCommandServiceImpl implements MemberCommandService {
     private final PasswordEncoder passwordEncoder;
     private final AmazonS3Manager amazonS3Manager;
     private final UuidRepository uuidRepository;
+    private final MemberStyleRepository memberStyleRepository;
 
     @Override
     @Transactional
@@ -129,6 +131,26 @@ public class MemberCommandServiceImpl implements MemberCommandService {
                     amazonS3Manager.generateMemberKeyName(savedUuid), updateMemberProfileImageDTO.getProfileImage());
         }
         member.setProfileImageUrl(profileImageUrl);
+        return memberRepository.save(member);
+    }
+
+    @Override
+    @Transactional
+    public Member updateMemberPreferStyle(String username, MemberRequestDTO.memberStyleUpdateDTO memberStyleUpdateDTO) {
+        if (!memberRepository.existsByUsernamae(username))
+            throw new MemberHandler(ErrorStatus.MEMBER_NOT_FOUND);
+        Member member = memberRepository.findByUsernamae(username).get();
+
+        // TODO 멤버 스타일 삭제하는 코드 작성
+        memberStyleRepository.deleteAllByMember(member);
+
+        // 새로 스타일 저장하는 코드
+        List<Style> styleList = memberStyleUpdateDTO.getPreferStyles().stream()
+                .map(style -> {return styleRepository.findByStyle(style).orElseThrow(() -> new StyleHandler(ErrorStatus.STYLE_NOT_FOUND));
+                }).collect(Collectors.toList());
+
+        List<MemberStyle> memberStyleList = MemberStyleConverter.toMemberStyleList(styleList);
+        memberStyleList.forEach(memberStyle -> memberStyle.setMember(member));
         return memberRepository.save(member);
     }
 
