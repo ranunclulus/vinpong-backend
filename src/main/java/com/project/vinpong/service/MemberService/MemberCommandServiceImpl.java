@@ -141,6 +141,8 @@ public class MemberCommandServiceImpl implements MemberCommandService {
             throw new MemberHandler(ErrorStatus.MEMBER_NOT_FOUND);
         Member member = memberRepository.findByUsernamae(username).get();
 
+        // TODO 멤버 스타일 삭제하는 코드 작성
+        memberStyleRepository.deleteAllByMember(member);
 
         // 새로 스타일 저장하는 코드
         List<Style> styleList = memberStyleUpdateDTO.getPreferStyles().stream()
