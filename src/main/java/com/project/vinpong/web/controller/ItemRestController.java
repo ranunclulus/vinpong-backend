@@ -53,5 +53,11 @@ public class ItemRestController {
         return ApiResponse.onSuccess(ItemConverter.toItemtDTO(item));
     }
 
+    @DeleteMapping("/{itemId}")
+    public ApiResponse<ItemResponseDTO.ReadDetailResultDTO> deleteByItemid(@PathVariable("itemId") Long itemId) {
+        itemCommandService.deleteById(itemId);
+        return null;
+    }
+
 }
 
