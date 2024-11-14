@@ -106,4 +106,13 @@ public class ItemCommandServiceImpl implements ItemCommandService{
         if (item.isEmpty()) throw new ItemHandler(ErrorStatus.ITEM_NOT_FOUND);
         return item.get();
     }
+
+    @Override
+    @Transactional
+    public void deleteById(Long itemId, String username) {
+        Optional<Item> item = itemRepository.findById(itemId);
+        if (item.isEmpty()) throw new ItemHandler(ErrorStatus.ITEM_NOT_FOUND);
+        if (!item.get().getSeller().getUsernamae().equals(username)) throw new ItemHandler(ErrorStatus.SELLER_NOT_MATCHED);
+        itemRepository.deleteById(itemId);
+    }
 }
