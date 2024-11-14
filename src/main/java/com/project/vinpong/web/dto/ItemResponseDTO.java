@@ -61,6 +61,15 @@ public class ItemResponseDTO {
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
+    public static class DeleteResultDTO {
+
+        Long itemId;
+    }
+
+    @Getter
+    @Builder
+    @NoArgsConstructor
+    @AllArgsConstructor
     public static class SellerDTO {
         String username;
         String email;

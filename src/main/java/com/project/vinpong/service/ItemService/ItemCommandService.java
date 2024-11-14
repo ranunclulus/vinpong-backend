@@ -13,4 +13,6 @@ public interface ItemCommandService {
     List<Item> getAllItemsByShop(Long shopId);
 
     Item searchById(Long itemId);
+
+    void deleteById(Long itemId);
 }
