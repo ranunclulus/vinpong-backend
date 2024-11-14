@@ -14,5 +14,5 @@ public interface ItemCommandService {
 
     Item searchById(Long itemId);
 
-    void deleteById(Long itemId);
+    void deleteById(Long itemId, String username);
 }

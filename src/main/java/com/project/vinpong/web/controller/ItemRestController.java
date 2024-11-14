@@ -5,11 +5,13 @@ import com.project.vinpong.converter.ItemConverter;
 import com.project.vinpong.domain.Item;
 import com.project.vinpong.domain.Member;
 import com.project.vinpong.jwt.JwtSecurityUtil;
+import com.project.vinpong.jwt.JwtTokenProvider;
 import com.project.vinpong.service.ItemService.ItemCommandService;
 import com.project.vinpong.service.MemberService.CustomUserDetailService;
 import com.project.vinpong.service.MemberService.MemberCommandService;
 import com.project.vinpong.web.dto.ItemRequestDTO;
 import com.project.vinpong.web.dto.ItemResponseDTO;
+import io.jsonwebtoken.Claims;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -25,6 +27,7 @@ import java.util.List;
 public class ItemRestController {
     private final ItemCommandService itemCommandService;
     private final MemberCommandService memberCommandService;
+    private final JwtTokenProvider jwtTokenProvider;
 
     @PostMapping()
     public ApiResponse<ItemResponseDTO.JoinResultDTO> join(@RequestBody @Valid ItemRequestDTO.JoinDTO joinDTO) {
@@ -54,9 +57,17 @@ public class ItemRestController {
     }
 
     @DeleteMapping("/{itemId}")
-    public ApiResponse<ItemResponseDTO.DeleteResultDTO> deleteByItemid(@PathVariable("itemId") Long itemId) {
-        itemCommandService.deleteById(itemId);
+    public ApiResponse<ItemResponseDTO.DeleteResultDTO> deleteByItemid(@PathVariable("itemId") Long itemId,
+                                                                       HttpServletRequest request) {
+        String username = extractUserName(request);
+        itemCommandService.deleteById(itemId, username);
         return ApiResponse.onSuccess(ItemResponseDTO.DeleteResultDTO.builder().itemId(itemId).build());
+    }
+
+    private String extractUserName(HttpServletRequest request) {
+        String token = request.getHeader("Authorization").substring(7);
+        Claims claims = jwtTokenProvider.parseClaims(token);
+        return (String) claims.get("sub");
     }
 
 }
